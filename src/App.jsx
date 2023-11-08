@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import contactIcon from './assets/icon-contact.svg';
+import menuIcon from './assets/icon-menu.svg';
 import messageIcon from './assets/icon-message.svg';
 import './App.css';
 
@@ -8,9 +9,11 @@ function App() {
   const [activeView, setActiveView] = useState('chat');
   const threads = [
     { id: 1, contactName: '小帅', updateTime: '2023-11-04', latestMessage: '书名是《现代React Web应用设计开发实践》' },
-    { id: 2, contactName: '小帅', updateTime: '2023-11-04', latestMessage: '书名是《现代React Web应用设计开发实践》', active: true },
-    { id: 3, contactName: '小帅', updateTime: '2023-11-04', latestMessage: '书名是《现代React Web应用设计开发实践》' },
-    { id: 4, contactName: '小帅', updateTime: '2023-11-04', latestMessage: '书名是《现代React Web应用设计开发实践》' },
+    { id: 2, contactName: '小白', updateTime: '2023-11-03', latestMessage: '有的，就叫《我聊》。', active: true },
+    { id: 3, contactName: '小美', updateTime: '2023-11-02', latestMessage: '现代React Web应用设计开发实践' },
+    { id: 4, contactName: '大壮', updateTime: '2023-11-02', latestMessage: 'Web应用的名字叫《我聊》' },
+    { id: 5, contactName: '老宋', updateTime: '2023-10-31', latestMessage: '项目名为oh-my-chat' },
+    // { id: 6, contactName: '贾姐', updateTime: '2023-10-28', latestMessage: '这本书的书名是《现代React Web应用设计开发实践》' },
   ];
 
   return (
@@ -31,12 +34,12 @@ function App() {
         </ul>
       </nav>
       <aside>
-        <nav className="thread-top-menu">
+        <header className="thread-top-menu">
           <form>
             <input /><input type="submit" value="搜索对话" />
           </form>
           <button>新建对话</button>
-        </nav>
+        </header>
         <ul className="thread-list">
           {
             threads.map(thread => (
@@ -55,10 +58,22 @@ function App() {
         </ul>
       </aside>
       <main>
-        
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <header className="message-top-menu">
+          <h1>小白</h1>
+          <button><img src={menuIcon} /></button>
+        </header>
+        <ul className="message-list">
+          <li className="">
+            <img src={reactLogo} className="avatar" />
+            <p className="message">
+              你好React！
+            </p>
+          </li>
+        </ul>
+        <form className="compose-message">
+          <textarea placeholder="请输入信息…" />
+          <input type="submit" value="发送" />
+        </form>
       </main>
     </div>
   );

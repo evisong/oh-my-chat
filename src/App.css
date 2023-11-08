@@ -36,6 +36,9 @@
   margin: 12px 12px 12px 0;
   border-radius: 0 20px 20px 0;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background-color: #FFFFFF;
 }
 
@@ -84,6 +87,7 @@
   justify-content: space-around;
   align-items: center;
   border-bottom: 1px solid #9A9A9A;
+  height: 80px;
   background-color: #CECECE;
 }
 
@@ -94,8 +98,10 @@
 .thread-list {
   margin: 0;
   padding: 0;
-  list-style: none;
   width: 100%;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .thread-list li {
@@ -107,9 +113,10 @@
 }
 
 .thread-list li > a {
+  padding: 0 1.2rem;
   display: flex;
-  justify-content: center;
   align-items: center;
+  column-gap: 1.2rem;
   height: 100%;
 }
 
@@ -118,73 +125,82 @@
 }
 
 .thread-list li > a > .avatar {
-  margin: 1.2rem;
   border-radius: 50%;
-  width: 2rem;
+  flex: 0 0 2rem;
   height: 2rem;
   background-color: #EEEEEE;
 }
 
 .thread-list li > a > .thread {
-  margin-right: 1.2rem;
+  flex: 1;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
+  overflow: hidden;
 }
 
 .thread .contact-name {
-  flex: 2 1;
+  flex: 2;
   font-size: 1.2rem;
   color: #000000;
 }
 
 .thread .update-time {
+  flex: 1;
   color: #9A9A9A;
 }
 
 .thread .latest-message {
-  flex-basis: 100%;
-  max-width: 310px;
+  flex: 0 0 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #9A9A9A;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.message-top-menu {
+  flex: 0 0 5rem;
+  padding: 0 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #9A9A9A;
+  height: 80px;
+  background-color: #EFEFEF;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.message-top-menu > h1 {
+  font-size: 1.4rem;
 }
 
-.card {
-  padding: 2em;
+.message-top-menu > button > img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.message-list {
+  flex: 1;
+  margin: 0 1.2rem;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.compose-message {
+  margin: 1.2rem;
+  flex: 0 0 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.2rem;
+}
+
+.compose-message > textarea {
+  flex: 1;
+  height: 5rem;
 }
