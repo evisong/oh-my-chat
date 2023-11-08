@@ -1,8 +1,156 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #4095E5;
+}
+
+.root {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.root > nav {
+  margin: 28px 0;
+  flex: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.root > aside {
+  margin: 12px 0;
+  border-radius: 20px 0 0 20px;
+  border-right: 1px solid #9A9A9A;
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #EFEFEF;
+}
+
+.root > main {
+  margin: 12px 12px 12px 0;
+  border-radius: 0 20px 20px 0;
+  flex-grow: 1;
+  background-color: #FFFFFF;
+}
+
+.my-avatar {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-color: #EEEEEE;
+}
+
+.top-nav {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.top-nav li {
+  height: 80px;
+}
+
+.top-nav li.active {
+  background-color: #FFFFFF33;
+}
+
+.top-nav li > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.top-nav li > a:hover, .top-nav li > a:active {
+  background-color: #FFFFFF11;
+}
+
+.top-nav li > a > img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.thread-top-menu {
+  flex: 0 0 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #9A9A9A;
+  background-color: #CECECE;
+}
+
+.thread-top-menu input, .thread-top-menu button {
+  height: 2rem;
+}
+
+.thread-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.thread-list li {
+  height: 80px;
+}
+
+.thread-list li.active {
+  background-color: #FFFFFF99;
+}
+
+.thread-list li > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.thread-list li > a:hover, .thread-list li > a:active {
+  background-color: #FFFFFF77;
+}
+
+.thread-list li > a > .avatar {
+  margin: 1.2rem;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background-color: #EEEEEE;
+}
+
+.thread-list li > a > .thread {
+  margin-right: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.thread .contact-name {
+  flex: 2 1;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.thread .update-time {
+  color: #9A9A9A;
+}
+
+.thread .latest-message {
+  flex-basis: 100%;
+  max-width: 310px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #9A9A9A;
 }
 
 .logo {
