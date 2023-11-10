@@ -3,7 +3,7 @@
   padding: 0;
   width: 100%;
   height: 100vh;
-  background-color: #4095E5;
+  background-color: #4095e5;
 }
 
 .root {
@@ -24,12 +24,12 @@
 .root > aside {
   margin: 12px 0;
   border-radius: 20px 0 0 20px;
-  border-right: 1px solid #9A9A9A;
+  border-right: 1px solid #9a9a9a;
   flex: 0 0 400px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #EFEFEF;
+  background-color: #efefef;
 }
 
 .root > main {
@@ -39,14 +39,14 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .my-avatar {
   border-radius: 50%;
   width: 48px;
   height: 48px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .top-nav {
@@ -61,7 +61,7 @@
 }
 
 .top-nav li.active {
-  background-color: #FFFFFF33;
+  background-color: #ffffff33;
 }
 
 .top-nav li > a {
@@ -71,8 +71,9 @@
   height: 100%;
 }
 
-.top-nav li > a:hover, .top-nav li > a:active {
-  background-color: #FFFFFF11;
+.top-nav li > a:hover,
+.top-nav li > a:active {
+  background-color: #ffffff11;
 }
 
 .top-nav li > a > img {
@@ -86,12 +87,13 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px solid #9A9A9A;
+  border-bottom: 1px solid #9a9a9a;
   height: 80px;
-  background-color: #CECECE;
+  background-color: #cecece;
 }
 
-.thread-top-menu input, .thread-top-menu button {
+.thread-top-menu input,
+.thread-top-menu button {
   height: 2rem;
 }
 
@@ -109,7 +111,7 @@
 }
 
 .thread-list li.active {
-  background-color: #FFFFFF99;
+  background-color: #ffffff99;
 }
 
 .thread-list li > a {
@@ -120,15 +122,16 @@
   height: 100%;
 }
 
-.thread-list li > a:hover, .thread-list li > a:active {
-  background-color: #FFFFFF77;
+.thread-list li > a:hover,
+.thread-list li > a:active {
+  background-color: #ffffff77;
 }
 
 .thread-list li > a > .avatar {
   border-radius: 50%;
   flex: 0 0 2rem;
   height: 2rem;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .thread-list li > a > .thread {
@@ -149,7 +152,7 @@
 
 .thread .update-time {
   flex: 1;
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 
 .thread .latest-message {
@@ -157,7 +160,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 
 .message-top-menu {
@@ -167,9 +170,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #9A9A9A;
+  border-bottom: 1px solid #9a9a9a;
   height: 80px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
 }
 
 .message-top-menu > h1 {
@@ -200,7 +203,7 @@
 }
 
 .message-list li.active {
-  background-color: #FFFFFF99;
+  background-color: #ffffff99;
 }
 
 .message-list li.from-me {
@@ -211,16 +214,16 @@
   border-radius: 50%;
   flex: 0 0 2rem;
   height: 2rem;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .message-list li > .message {
   flex: 0 1 50%;
   margin: 0 0 1.5rem;
   padding: 0.6rem 1.2rem;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
   border-radius: 5px;
-  background-color: #8DFA69;
+  background-color: #8dfa69;
 }
 
 .compose-message {
