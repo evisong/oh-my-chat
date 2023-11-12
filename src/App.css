@@ -188,7 +188,6 @@
   flex: 1;
   margin: 0 1.2rem;
   padding: 1.2rem 0;
-  /* width: 100%; */
   list-style: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -218,7 +217,8 @@
 }
 
 .message-list li > .message {
-  flex: 0 1 50%;
+  flex: 0 1 auto;
+  max-width: 50%;
   margin: 0 0 1.5rem;
   padding: 0.6rem 1.2rem;
   border: 1px solid #bbbbbb;
