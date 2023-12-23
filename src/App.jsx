@@ -115,12 +115,12 @@ function App() {
       <nav>
         <img src={reactLogo} className="my-avatar" />
         <ul className="top-nav">
-          <li className={activeView === 'chat' && 'active'}>
+          <li className={activeView === 'chat' ? 'active' : ''}>
             <a href="#" onClick={() => setActiveView('chat')}>
               <img src={messageIcon} />
             </a>
           </li>
-          <li className={activeView === 'contact' && 'active'}>
+          <li className={activeView === 'contact' ? 'active' : ''}>
             <a href="#" onClick={() => setActiveView('contact')}>
               <img src={contactIcon} />
             </a>
@@ -128,10 +128,10 @@ function App() {
         </ul>
       </nav>
       <aside>
-        <ThreadsPane />
+        {activeView === 'chat' && <ThreadsPane />}
       </aside>
       <main>
-        <MessagesPane />
+        {activeView === 'chat' && <MessagesPane />}
       </main>
     </div>
   );
