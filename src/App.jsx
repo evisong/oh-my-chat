@@ -53,7 +53,7 @@ const ThreadsPane = () => {
         {threads.map((thread) => (
           <li key={thread.id} className={thread.active && 'active'}>
             <a href="#">
-              <img src={reactLogo} className="avatar" />
+              <img src={reactLogo} className="avatar" alt="头像" />
               <div className="thread">
                 <span className="contact-name">{thread.contactName}</span>
                 <span className="update-time">{thread.updateTime}</span>
@@ -72,31 +72,31 @@ const MessagesPane = () => (
     <header className="message-top-menu">
       <h1>小白</h1>
       <button>
-        <img src={menuIcon} />
+        <img src={menuIcon} alt="信息菜单" />
       </button>
     </header>
     <ul className="message-list">
       <li className="from-me">
-        <img src={reactLogo} className="avatar" />
+        <img src={reactLogo} className="avatar" alt="头像" />
         <p className="message">你好React！</p>
       </li>
       <li>
-        <img src={reactLogo} className="avatar" />
+        <img src={reactLogo} className="avatar" alt="头像" />
         <p className="message">你好React！</p>
       </li>
       <li className="from-me">
-        <img src={reactLogo} className="avatar" />
+        <img src={reactLogo} className="avatar" alt="头像" />
         <p className="message">
           欢迎阅读《现代React
           Web应用设计开发实践》，你现在看到的是本书的样例应用。
         </p>
       </li>
       <li>
-        <img src={reactLogo} className="avatar" />
+        <img src={reactLogo} className="avatar" alt="头像" />
         <p className="message">这款应用有名字吗？</p>
       </li>
       <li className="from-me">
-        <img src={reactLogo} className="avatar" />
+        <img src={reactLogo} className="avatar" alt="头像" />
         <p className="message">有的，就叫《我聊》。</p>
       </li>
     </ul>
@@ -113,26 +113,22 @@ function App() {
   return (
     <div className="root">
       <nav>
-        <img src={reactLogo} className="my-avatar" />
+        <img src={reactLogo} className="my-avatar" alt="我的头像" />
         <ul className="top-nav">
           <li className={activeView === 'chat' ? 'active' : ''}>
             <a href="#" onClick={() => setActiveView('chat')}>
-              <img src={messageIcon} />
+              <img src={messageIcon} alt="信息" />
             </a>
           </li>
           <li className={activeView === 'contact' ? 'active' : ''}>
             <a href="#" onClick={() => setActiveView('contact')}>
-              <img src={contactIcon} />
+              <img src={contactIcon} alt="联系人" />
             </a>
           </li>
         </ul>
       </nav>
-      <aside>
-        {activeView === 'chat' && <ThreadsPane />}
-      </aside>
-      <main>
-        {activeView === 'chat' && <MessagesPane />}
-      </main>
+      <aside>{activeView === 'chat' && <ThreadsPane />}</aside>
+      <main>{activeView === 'chat' && <MessagesPane />}</main>
     </div>
   );
 }
