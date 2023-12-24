@@ -44,7 +44,7 @@ const ThreadsPane = () => {
     <>
       <header className="thread-top-menu">
         <form>
-          <input />
+          <input maxLength={20} />
           <input type="submit" value="搜索对话" />
         </form>
         <button>新建对话</button>
@@ -115,12 +115,12 @@ function App() {
       <nav>
         <img src={reactLogo} className="my-avatar" alt="我的头像" />
         <ul className="top-nav">
-          <li className={activeView === 'chat' ? 'active' : ''}>
+          <li className={activeView === 'chat' ? 'active' : undefined}>
             <a href="#" onClick={() => setActiveView('chat')}>
               <img src={messageIcon} alt="信息" />
             </a>
           </li>
-          <li className={activeView === 'contact' ? 'active' : ''}>
+          <li className={activeView === 'contact' ? 'active' : undefined}>
             <a href="#" onClick={() => setActiveView('contact')}>
               <img src={contactIcon} alt="联系人" />
             </a>
