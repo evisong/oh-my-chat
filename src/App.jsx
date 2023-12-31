@@ -72,7 +72,7 @@ const MessagesPane = () => (
     <header className="message-top-menu">
       <h1>小白</h1>
       <button>
-        <img src={menuIcon} alt="信息菜单" />
+        <img src={menuIcon} alt="消息菜单" />
       </button>
     </header>
     <ul className="message-list">
@@ -101,7 +101,7 @@ const MessagesPane = () => (
       </li>
     </ul>
     <form className="compose-message">
-      <textarea placeholder="请输入信息…" />
+      <textarea placeholder="请输入消息…" />
       <input type="submit" value="发送" />
     </form>
   </>
@@ -117,7 +117,7 @@ function App() {
         <ul className="top-nav">
           <li className={activeView === 'chat' ? 'active' : undefined}>
             <a href="#" onClick={() => setActiveView('chat')}>
-              <img src={messageIcon} alt="信息" />
+              <img src={messageIcon} alt="消息" />
             </a>
           </li>
           <li className={activeView === 'contact' ? 'active' : undefined}>
