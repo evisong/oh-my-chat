@@ -239,3 +239,102 @@
   flex: 1;
   height: 5rem;
 }
+
+.contact-top-menu {
+  flex: 0 0 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #9a9a9a;
+  height: 80px;
+  background-color: #cecece;
+}
+
+.contact-top-menu input,
+.contact-top-menu button {
+  height: 2rem;
+}
+
+.contact-list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.contact-list li {
+  height: 80px;
+}
+
+.contact-list li.active {
+  background-color: #ffffff99;
+}
+
+.contact-list li > a {
+  padding: 0 1.2rem;
+  display: flex;
+  align-items: center;
+  column-gap: 1.2rem;
+  height: 100%;
+}
+
+.contact-list li > a:hover,
+.contact-list li > a:active {
+  background-color: #ffffff77;
+}
+
+.contact-list li > a > .avatar {
+  border-radius: 50%;
+  flex: 0 0 2rem;
+  height: 2rem;
+  background-color: #eeeeee;
+}
+
+.contact-list li > a > .contact-name {
+  flex: 1;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.contact-detail {
+  flex: 2;
+  padding: 5rem 30% 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-detail > .avatar {
+  border-radius: 50%;
+  width: 5;
+  height: 5rem;
+  background-color: #eeeeee;
+}
+
+.contact-detail > .contact-name {
+  margin: 1.2rem;
+  font-size: 1.6rem;
+}
+
+.contact-actions {
+  flex: 1;
+  padding: 2rem 30%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1rem;
+}
+
+.contact-actions > .primary-button {
+  flex: 2 0 100%;
+  height: 2rem;
+}
+
+.contact-actions > .secondary-button {
+  flex: 1;
+  min-width: 6rem;
+  height: 2rem;
+}
