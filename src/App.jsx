@@ -107,6 +107,17 @@ const MessagesPane = () => (
   </>
 );
 
+const ChatView = () => (
+  <>
+    <aside>
+      <ThreadsPane />
+    </aside>
+    <main>
+      <MessagesPane />
+    </main>
+  </>
+);
+
 const ContactsPane = () => {
   const contacts = [
     {
@@ -173,6 +184,17 @@ const ContactDetail = () => (
   </>
 );
 
+const ContactView = () => (
+  <>
+    <aside>
+      <ContactsPane />
+    </aside>
+    <main>
+      <ContactDetail />
+    </main>
+  </>
+);
+
 function App() {
   const [activeView, setActiveView] = useState('chat');
 
@@ -193,12 +215,7 @@ function App() {
           </li>
         </ul>
       </nav>
-      <aside>
-        {activeView === 'chat' ? <ThreadsPane /> : <ContactsPane />}
-      </aside>
-      <main>
-        {activeView === 'chat' ? <MessagesPane /> : <ContactDetail />}
-      </main>
+      {activeView === 'chat' ? <ChatView /> : <ContactView />}
     </div>
   );
 }
