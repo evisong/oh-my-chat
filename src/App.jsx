@@ -5,7 +5,17 @@ import menuIcon from './assets/icon-menu.svg';
 import messageIcon from './assets/icon-message.svg';
 import './App.css';
 
-const ThreadsPane = () => {
+const ThreadTopMenu = () => (
+  <header className="thread-top-menu">
+    <form>
+      <input maxLength={20} />
+      <input type="submit" value="搜索对话" />
+    </form>
+    <button>新建对话</button>
+  </header>
+);
+
+const ThreadList = () => {
   const threads = [
     {
       id: 1,
@@ -41,69 +51,79 @@ const ThreadsPane = () => {
   ];
 
   return (
-    <>
-      <header className="thread-top-menu">
-        <form>
-          <input maxLength={20} />
-          <input type="submit" value="搜索对话" />
-        </form>
-        <button>新建对话</button>
-      </header>
-      <ul className="thread-list">
-        {threads.map((thread) => (
-          <li key={thread.id} className={thread.active && 'active'}>
-            <a href="#">
-              <img src={reactLogo} className="avatar" alt="头像" />
-              <div className="thread">
-                <span className="contact-name">{thread.contactName}</span>
-                <span className="update-time">{thread.updateTime}</span>
-                <span className="latest-message">{thread.latestMessage}</span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="thread-list">
+      {threads.map((thread) => (
+        <li key={thread.id} className={thread.active && 'active'}>
+          <a href="#">
+            <img src={reactLogo} className="avatar" alt="头像" />
+            <div className="thread">
+              <span className="contact-name">{thread.contactName}</span>
+              <span className="update-time">{thread.updateTime}</span>
+              <span className="latest-message">{thread.latestMessage}</span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 };
 
+const ThreadsPane = () => (
+  <>
+    <ThreadTopMenu />
+    <ThreadList />
+  </>
+);
+
+const MessageTopMenu = () => (
+  <header className="message-top-menu">
+    <h1>小白</h1>
+    <button>
+      <img src={menuIcon} alt="消息菜单" />
+    </button>
+  </header>
+);
+
+const MessageList = () => (
+  <ul className="message-list">
+    <li className="from-me">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <p className="message">你好React！</p>
+    </li>
+    <li>
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <p className="message">你好React！</p>
+    </li>
+    <li className="from-me">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <p className="message">
+        欢迎阅读《现代React
+        Web应用设计开发实践》，你现在看到的是本书的样例应用。
+      </p>
+    </li>
+    <li>
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <p className="message">这款应用有名字吗？</p>
+    </li>
+    <li className="from-me">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <p className="message">有的，就叫《我聊》。</p>
+    </li>
+  </ul>
+);
+
+const NewMessageForm = () => (
+  <form className="compose-message">
+    <textarea placeholder="请输入消息…" />
+    <input type="submit" value="发送" />
+  </form>
+);
+
 const MessagesPane = () => (
   <>
-    <header className="message-top-menu">
-      <h1>小白</h1>
-      <button>
-        <img src={menuIcon} alt="消息菜单" />
-      </button>
-    </header>
-    <ul className="message-list">
-      <li className="from-me">
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <p className="message">你好React！</p>
-      </li>
-      <li>
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <p className="message">你好React！</p>
-      </li>
-      <li className="from-me">
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <p className="message">
-          欢迎阅读《现代React
-          Web应用设计开发实践》，你现在看到的是本书的样例应用。
-        </p>
-      </li>
-      <li>
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <p className="message">这款应用有名字吗？</p>
-      </li>
-      <li className="from-me">
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <p className="message">有的，就叫《我聊》。</p>
-      </li>
-    </ul>
-    <form className="compose-message">
-      <textarea placeholder="请输入消息…" />
-      <input type="submit" value="发送" />
-    </form>
+    <MessageTopMenu />
+    <MessageList />
+    <NewMessageForm />
   </>
 );
 
