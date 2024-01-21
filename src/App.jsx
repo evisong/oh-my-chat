@@ -138,7 +138,17 @@ const ChatView = () => (
   </>
 );
 
-const ContactsPane = () => {
+const ContactTopMenu = () => (
+  <header className="contact-top-menu">
+    <form>
+      <input maxLength={20} />
+      <input type="submit" value="搜索联系人" />
+    </form>
+    <button>添加联系人</button>
+  </header>
+);
+
+const ContactList = () => {
   const contacts = [
     {
       id: 1,
@@ -168,27 +178,25 @@ const ContactsPane = () => {
   ];
 
   return (
-    <>
-      <header className="contact-top-menu">
-        <form>
-          <input maxLength={20} />
-          <input type="submit" value="搜索联系人" />
-        </form>
-        <button>添加联系人</button>
-      </header>
-      <ul className="contact-list">
-        {contacts.map((contact) => (
-          <li key={contact.id} className={contact.active && 'active'}>
-            <a href="#">
-              <img src={reactLogo} className="avatar" alt="头像" />
-              <div className="contact-name">{contact.name}</div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="contact-list">
+      {contacts.map((contact) => (
+        <li key={contact.id} className={contact.active && 'active'}>
+          <a href="#">
+            <img src={reactLogo} className="avatar" alt="头像" />
+            <div className="contact-name">{contact.name}</div>
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 };
+
+const ContactsPane = () => (
+  <>
+    <ContactTopMenu />
+    <ContactList />
+  </>
+);
 
 const ContactDetail = () => (
   <>
