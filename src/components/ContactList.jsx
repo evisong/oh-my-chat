@@ -1,5 +1,14 @@
 import reactLogo from '../assets/react.svg';
 
+const ContactListItem = ({ contactName, active }) => (
+  <li className={active && 'active'}>
+    <a href="#">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <div className="contact-name">{contactName}</div>
+    </a>
+  </li>
+);
+
 const ContactList = () => {
   const contacts = [
     {
@@ -32,12 +41,11 @@ const ContactList = () => {
   return (
     <ul className="contact-list">
       {contacts.map((contact) => (
-        <li key={contact.id} className={contact.active && 'active'}>
-          <a href="#">
-            <img src={reactLogo} className="avatar" alt="头像" />
-            <div className="contact-name">{contact.name}</div>
-          </a>
-        </li>
+        <ContactListItem
+          key={contact.id}
+          contactName={contact.name}
+          active={contact.active}
+        />
       ))}
     </ul>
   );
