@@ -1,5 +1,18 @@
 import reactLogo from '../assets/react.svg';
 
+const ThreadListItem = ({ contactName, updateTime, latestMessage, active }) => (
+  <li className={active && 'active'}>
+    <a href="#">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <div className="thread">
+        <span className="contact-name">{contactName}</span>
+        <span className="update-time">{updateTime}</span>
+        <span className="latest-message">{latestMessage}</span>
+      </div>
+    </a>
+  </li>
+);
+
 const ThreadList = () => {
   const threads = [
     {
@@ -38,16 +51,7 @@ const ThreadList = () => {
   return (
     <ul className="thread-list">
       {threads.map((thread) => (
-        <li key={thread.id} className={thread.active && 'active'}>
-          <a href="#">
-            <img src={reactLogo} className="avatar" alt="头像" />
-            <div className="thread">
-              <span className="contact-name">{thread.contactName}</span>
-              <span className="update-time">{thread.updateTime}</span>
-              <span className="latest-message">{thread.latestMessage}</span>
-            </div>
-          </a>
-        </li>
+        <ThreadListItem key={thread.id} {...thread} />
       ))}
     </ul>
   );
