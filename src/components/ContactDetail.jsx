@@ -1,14 +1,18 @@
 import React from 'react';
 import NavigationContext from '../context/NavigationContext.jsx';
-import reactLogo from '../assets/react.svg';
 
-const ContactDetail = () => {
+const ContactDetail = ({ contact }) => {
+  if (!contact) {
+    return (<div className="contact-detail">请选择联系人</div>);
+  }
+
+  const { name, avatar } = contact;
   const { gotoChatView } = React.useContext(NavigationContext);
   return (
     <>
       <div className="contact-detail">
-        <img src={reactLogo} className="avatar" alt="头像" />
-        <div className="contact-name">小美</div>
+        <img src={avatar} className="avatar" alt="头像" />
+        <div className="contact-name">{name}</div>
       </div>
       <div className="contact-actions">
         <button onClick={gotoChatView} className="primary-button">
