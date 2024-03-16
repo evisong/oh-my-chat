@@ -1,26 +1,8 @@
-import { useState } from 'react';
-
-const NewMessageForm = ({ onSubmitMessage }) => {
-  const [content, setContent] = useState('');
-  const handleChange = (evt) => {
-    setContent(evt.target.value);
-  };
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    onSubmitMessage(content);
-    setContent('');
-  };
-
-  return (
-    <form className="compose-message" onSubmit={handleSubmit}>
-      <textarea
-        placeholder="请输入消息…"
-        value={content}
-        onChange={handleChange}
-      />
-      <input type="submit" value="发送" />
-    </form>
-  );
-};
+const NewMessageForm = () => (
+  <form className="compose-message">
+    <textarea placeholder="请输入消息…" />
+    <input type="submit" value="发送" />
+  </form>
+);
 
 export default NewMessageForm;

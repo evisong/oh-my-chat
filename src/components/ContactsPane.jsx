@@ -1,10 +1,10 @@
 import ContactTopMenu from './ContactTopMenu.jsx';
 import ContactList from './ContactList.jsx';
 
-const ContactsPane = (props) => (
+const ContactsPane = () => (
   <>
     <ContactTopMenu />
-    <ContactList {...props} />
+    <ContactList />
   </>
 );
 
