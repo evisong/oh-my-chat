@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const NewMessageForm = ({ onSubmitMessage }) => {
   const [content, setContent] = useState('');
@@ -10,6 +10,8 @@ const NewMessageForm = ({ onSubmitMessage }) => {
     onSubmitMessage(content);
     setContent('');
   };
+  const inputRef = useRef(null);
+  useEffect(() => inputRef.current.focus(), []);
 
   return (
     <form className="compose-message" onSubmit={handleSubmit}>
@@ -17,6 +19,7 @@ const NewMessageForm = ({ onSubmitMessage }) => {
         placeholder="请输入消息…"
         value={content}
         onChange={handleChange}
+        ref={inputRef}
       />
       <input type="submit" value="发送" />
     </form>
