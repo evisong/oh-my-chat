@@ -1,10 +1,10 @@
 import ThreadTopMenu from './ThreadTopMenu.jsx';
 import ThreadList from './ThreadList.jsx';
 
-const ThreadsPane = () => (
+const ThreadsPane = (props) => (
   <>
     <ThreadTopMenu />
-    <ThreadList />
+    <ThreadList {...props} />
   </>
 );
 
