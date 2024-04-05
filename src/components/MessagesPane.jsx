@@ -9,20 +9,29 @@ const MessagesPane = ({ selectedThreadId }) => {
   const [contactName, setContactName] = useState();
   const [messages, setMessages] = useState([]);
   useEffect(() => {
+    let shouldIgnore = false;
     setIsLoading(true);
     const fetchMessages = async (threadId) => {
       try {
         const response = await fetch(`/api/threads/${threadId}/messages`);
         const data = await response.json();
-        setContactName(data.contactName);
-        setMessages(data.messages);
+        if (!shouldIgnore) {
+          setContactName(data.contactName);
+          setMessages(data.messages);
+        }
       } catch (error) {
         console.error('获取消息列表失败', error);
       } finally {
-        setIsLoading(false);
+        if (!shouldIgnore) {
+          setIsLoading(false);
+        }
       }
     };
     fetchMessages(selectedThreadId);
+
+    return function cleanup() {
+      shouldIgnore = true;
+    };
   }, [selectedThreadId]);
   const handleSubmitMessage = (content) => {
     setMessages((currentMessages) => {
