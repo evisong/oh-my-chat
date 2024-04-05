@@ -215,10 +215,8 @@
   min-height: 2rem;
 }
 
-.message-list li.timestamp {
-  justify-content: center;
-  color: #9a9a9a;
-  font-size: 0.8rem;
+.message-list li.active {
+  background-color: #ffffff99;
 }
 
 .message-list li.from-me {
