@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MessageItem = ({ content, from, fromAvatar }) => (
   <li className={from === 'me' ? 'from-me' : undefined}>
@@ -7,12 +7,35 @@ const MessageItem = ({ content, from, fromAvatar }) => (
   </li>
 );
 
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const UPDATE_INTERVAL = MINUTE;
 const MessageTimestamp = ({ sentTime }) => {
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'medium',
-  });
-  const timestamp = formatter.format(new Date(sentTime));
+  const [timestamp, setTimestamp] = useState('');
+  useEffect(() => {
+    const refresh = () => {
+      const timePassed = new Date() - new Date(sentTime);
+      let relativeTime = '刚刚';
+      if (MINUTE <= timePassed && timePassed < HOUR) {
+        relativeTime = `${Math.ceil(timePassed / MINUTE)} 分钟前`;
+      } else if (HOUR <= timePassed && timePassed < DAY) {
+        relativeTime = `${Math.ceil(timePassed / HOUR)} 小时前`;
+      } else if (DAY <= timePassed) {
+        relativeTime = new Intl.DateTimeFormat(undefined, {
+          dateStyle: 'medium',
+          timeStyle: 'medium',
+        }).format(new Date(sentTime));
+      }
+      setTimestamp(relativeTime);
+    };
+    const intervalId = setInterval(refresh, UPDATE_INTERVAL);
+    refresh();
+    return function cleanup() {
+      clearInterval(intervalId);
+    };
+  }, [sentTime]);
+
   return (
     <li className="timestamp">{timestamp}</li>
   );
