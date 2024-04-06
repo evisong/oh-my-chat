@@ -1,21 +1,32 @@
 import React from 'react';
 
-const MessageList = ({ messages }) => {
-  const dataTimeFormat = new Intl.DateTimeFormat(undefined, {dateStyle:'medium', timeStyle: 'medium'});
+const MessageItem = ({ content, from, fromAvatar }) => (
+  <li className={from === 'me' ? 'from-me' : undefined}>
+    <img src={fromAvatar} className="avatar" alt="头像" />
+    <p className="message">{content}</p>
+  </li>
+);
 
+const MessageTimestamp = ({ sentTime }) => {
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'medium',
+  });
+  const timestamp = formatter.format(new Date(sentTime));
+  return (
+    <li className="timestamp">{timestamp}</li>
+  );
+};
+
+const MessageList = ({ messages }) => {
   return (
     <ul className="message-list">
-      {messages.map(({ id, content, from, fromAvatar, sentTime }, idx, arr) => (
-        <React.Fragment key={id}>
+      {messages.map((message, idx, arr) => (
+        <React.Fragment key={message.id}>
           {(idx > 0 && shouldHideSentTime(arr[idx - 1], arr[idx])) || (
-            <li className="timestamp">
-              {dataTimeFormat.format(new Date(sentTime))}
-            </li>
+            <MessageTimestamp sentTime={message.sentTime} />
           )}
-          <li className={from === 'me' ? 'from-me' : undefined}>
-            <img src={fromAvatar} className="avatar" alt="头像" />
-            <p className="message">{content}</p>
-          </li>
+          <MessageItem {...message} />
         </React.Fragment>
       ))}
     </ul>
