@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const MessageItem = ({ content, from, fromAvatar }) => (
   <li className={from === 'me' ? 'from-me' : undefined}>
@@ -42,6 +42,11 @@ const MessageTimestamp = ({ sentTime }) => {
 };
 
 const MessageList = ({ messages }) => {
+  const lastLiRef = useRef();
+  useEffect(() => {
+    lastLiRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages]);
+
   return (
     <ul className="message-list">
       {messages.map((message, idx, arr) => (
@@ -52,6 +57,7 @@ const MessageList = ({ messages }) => {
           <MessageItem {...message} />
         </React.Fragment>
       ))}
+      <li style={{minHeight: 0}} ref={lastLiRef} />
     </ul>
   );
 };
