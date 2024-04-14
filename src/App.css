@@ -193,9 +193,35 @@
   font-size: 1.4rem;
 }
 
-.message-top-menu > button > img {
+.message-top-menu button > img {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.dropdown-wrap {
+  position: relative;
+}
+
+.dropdown-wrap > .dropdown {
+  position: absolute;
+  right: 0;
+  margin: -1px 0 0;
+  padding:  0;
+  border: 1px solid #9a9a9a;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  min-width: 8rem;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-wrap > .dropdown > li {
+  margin: 0.5rem;
+  list-style: none;
+}
+
+.dropdown-wrap > .dropdown > li > button {
+  width: 100%;
 }
 
 .message-list {
