@@ -19,45 +19,6 @@
   align-items: start;
 }
 
-.my-avatar {
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  background-color: #eeeeee;
-}
-
-.top-nav {
-  margin: 16px 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-}
-
-.top-nav li {
-  height: 80px;
-}
-
-.top-nav li.active {
-  background-color: #ffffff33;
-}
-
-.top-nav li > a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.top-nav li > a:hover,
-.top-nav li > a:active {
-  background-color: #ffffff11;
-}
-
-.top-nav li > a > img {
-  width: 2rem;
-  height: 2rem;
-}
-
 .thread-top-menu {
   flex: 0 0 5rem;
   display: flex;
