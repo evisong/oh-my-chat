@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Aside from './Aside.jsx';
+import Main from './Main.jsx';
 import ThreadsPane from './ThreadsPane.jsx';
 import MessagesPane from './MessagesPane.jsx';
 
@@ -7,15 +9,15 @@ const ChatView = () => {
 
   return (
     <>
-      <aside>
+      <Aside>
         <ThreadsPane
           selectedThreadId={selectedThreadId}
           onClickThreadItem={setSelectedThreadId}
         />
-      </aside>
-      <main>
+      </Aside>
+      <Main>
         <MessagesPane selectedThreadId={selectedThreadId} />
-      </main>
+      </Main>
     </>
   );
 };
