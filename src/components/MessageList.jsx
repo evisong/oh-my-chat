@@ -1,11 +1,48 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { css } from '@linaria/core';
+import { styled } from '@linaria/react';
+
+const Li = styled.li`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  column-gap: 1.2rem;
+  min-height: 2rem;
+`;
+
+const MessageLi = styled(Li)`
+  flex-direction: ${({fromMe}) => (fromMe ? 'row-reverse' : 'row')};
+
+  & > img {
+    border-radius: 50%;
+    flex: 0 0 2rem;
+    height: 2rem;
+    background-color: #eeeeee;
+  }
+
+  & > .message {
+    flex: 0 1 auto;
+    max-width: 50%;
+    margin: 0 0 1.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    background-color: #8dfa69;
+  }
+`;
 
 const MessageItem = ({ content, from, fromAvatar }) => (
-  <li className={from === 'me' ? 'from-me' : undefined}>
-    <img src={fromAvatar} className="avatar" alt="头像" />
+  <MessageLi fromMe={from === 'me'}>
+    <img src={fromAvatar} alt="头像" />
     <p className="message">{content}</p>
-  </li>
+  </MessageLi>
 );
+
+const TimestampLi = styled(Li)`
+  justify-content: center;
+  color: #9a9a9a;
+  font-size: 0.8rem;
+`;
 
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
@@ -36,8 +73,19 @@ const MessageTimestamp = ({ sentTime }) => {
     };
   }, [sentTime]);
 
-  return (<li className="timestamp">{timestamp}</li>);
+  return (
+    <TimestampLi>{timestamp}</TimestampLi>
+  );
 };
+
+const messageListStyles = css`
+  flex: 1;
+  margin: 0 1.2rem;
+  padding: 1.2rem 0;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
 
 const MessageList = ({ messages }) => {
   const lastLiRef = useRef();
@@ -51,7 +99,7 @@ const MessageList = ({ messages }) => {
   );
 
   return (
-    <ul className="message-list">
+    <ul className={messageListStyles}>
       {messages.map((message, idx, arr) => (
         <React.Fragment key={message.id}>
           {(idx > 0 && shouldHideSentTime(arr[idx - 1], arr[idx])) || (
