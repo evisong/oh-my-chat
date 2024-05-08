@@ -69,7 +69,7 @@ const mockContacts = [
 ];
 
 const useChatStore = create(
-  immer((set) => ({
+  immer((set, get) => ({
     threads: mockThreads,
     addThread: (thread) =>
       set((state) => {
@@ -96,12 +96,17 @@ const useChatStore = create(
           state.contacts[idx] = contact;
         }
       }),
-    removeContact: (contactId) =>
+    removeContact: (contactId) => {
+      const thread = get().threads.find((t) => t.contactId === contactId);
+      if (thread) {
+        get().removeThread(thread.id);
+      }
       set((state) => {
         state.contacts = state.contacts.filter(
           (contact) => contact.id !== contactId
         );
-      }),
+      });
+    },
 
     selectedContactId: null,
     selectContactById: (contactId) =>
