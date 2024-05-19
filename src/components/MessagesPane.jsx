@@ -18,16 +18,16 @@ const overlayLoadingStyles = css`
   align-items: start;
 `;
 
-const MessagesPane = ({ selectedThreadId }) => {
+const useFetchMessages = (threadId) => {
   const [isLoading, setIsLoading] = useState(true);
   const [contactName, setContactName] = useState();
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     let shouldIgnore = false;
     setIsLoading(true);
-    const fetchMessages = async (threadId) => {
+    const fetchMessages = async (tid) => {
       try {
-        const response = await fetch(`/api/threads/${threadId}/messages`);
+        const response = await fetch(`/api/threads/${tid}/messages`);
         const data = await response.json();
         if (!shouldIgnore) {
           setContactName(data.contactName);
@@ -41,12 +41,19 @@ const MessagesPane = ({ selectedThreadId }) => {
         }
       }
     };
-    fetchMessages(selectedThreadId);
+    fetchMessages(threadId);
 
     return function cleanup() {
       shouldIgnore = true;
     };
-  }, [selectedThreadId]);
+  }, [threadId]);
+
+  return { isLoading, contactName, messages, setMessages };
+};
+
+const MessagesPane = ({ selectedThreadId }) => {
+  const { isLoading, contactName, messages, setMessages } =
+    useFetchMessages(selectedThreadId);
   const handleSubmitMessage = (content) => {
     setMessages((currentMessages) => {
       const newMessage = {
@@ -65,7 +72,7 @@ const MessagesPane = ({ selectedThreadId }) => {
       <MessageTopMenu contactName={contactName} />
       <MessageList messages={messages} />
       <NewMessageForm onSubmitMessage={handleSubmitMessage} />
-      {isLoading && (<div className={overlayLoadingStyles}>加载中…</div>)}
+      {isLoading && <div className={overlayLoadingStyles}>加载中…</div>}
     </>
   );
 };
