@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, forwardRef } from 'react';
 import { css } from '@linaria/core';
 
 const composeMessageStyles = css`
@@ -15,7 +15,7 @@ const composeMessageStyles = css`
   }
 `;
 
-const NewMessageForm = ({ onSubmitMessage }) => {
+const NewMessageForm = forwardRef(function NMForm({ onSubmitMessage }, ref) {
   const [content, setContent] = useState('');
   const handleChange = (evt) => {
     setContent(evt.target.value);
@@ -31,8 +31,6 @@ const NewMessageForm = ({ onSubmitMessage }) => {
     onSubmitMessage(content);
     setContent('');
   };
-  const inputRef = useRef(null);
-  useEffect(() => inputRef.current.focus(), []);
 
   return (
     <form className={composeMessageStyles} onSubmit={handleSubmit}>
@@ -41,11 +39,11 @@ const NewMessageForm = ({ onSubmitMessage }) => {
         value={content}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
-        ref={inputRef}
+        ref={ref}
       />
       <input type="submit" value="发送" />
     </form>
   );
-};
+});
 
 export default NewMessageForm;

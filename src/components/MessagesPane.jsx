@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { css } from '@linaria/core';
 import reactLogo from '../assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
@@ -54,6 +54,10 @@ const useFetchMessages = (threadId) => {
 const MessagesPane = ({ selectedThreadId }) => {
   const { isLoading, contactName, messages, setMessages } =
     useFetchMessages(selectedThreadId);
+  const messageFormRef = useRef(null);
+  useEffect(() => {
+    if (!isLoading) messageFormRef.current.focus();
+  }, [isLoading]);
   const handleSubmitMessage = (content) => {
     setMessages((currentMessages) => {
       const newMessage = {
@@ -71,7 +75,11 @@ const MessagesPane = ({ selectedThreadId }) => {
     <>
       <MessageTopMenu contactName={contactName} />
       <MessageList messages={messages} />
-      <NewMessageForm onSubmitMessage={handleSubmitMessage} />
+      <NewMessageForm
+        key={selectedThreadId}
+        onSubmitMessage={handleSubmitMessage}
+        ref={messageFormRef}
+      />
       {isLoading && <div className={overlayLoadingStyles}>加载中…</div>}
     </>
   );
