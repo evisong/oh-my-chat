@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Aside from '../../components/Aside.jsx';
-import Main from '../../components/Main.jsx';
+import Aside from '#components/Aside.jsx';
+import Main from '#components/Main.jsx';
 import ThreadsPane from './ThreadsPane.jsx';
 import MessagesPane from './MessagesPane.jsx';
 

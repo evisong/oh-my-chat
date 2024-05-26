@@ -1,8 +1,8 @@
-import Aside from '../../components/Aside.jsx';
-import Main from '../../components/Main.jsx';
+import Aside from '#components/Aside.jsx';
+import Main from '#components/Main.jsx';
 import ContactsPane from './ContactsPane.jsx';
 import ContactDetail from './ContactDetail.jsx';
-import useChatStore from '../../stores/chatStore.js';
+import useChatStore from '#stores/chatStore.js';
 
 const ContactView = () => {
   const contacts = useChatStore((state) => state.contacts);
