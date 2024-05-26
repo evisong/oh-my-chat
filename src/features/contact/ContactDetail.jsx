@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { css } from '@linaria/core';
-import NavigationContext from '../../context/NavigationContext.jsx';
-import useChatStore from '../../stores/chatStore.js';
+import NavigationContext from '#context/NavigationContext.jsx';
+import useChatStore from '#stores/chatStore.js';
 
 const contactDetailStyles = css`
   flex: 2;

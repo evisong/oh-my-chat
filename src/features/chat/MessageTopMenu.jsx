@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from '@linaria/core';
-import NavigationContext from '../../context/NavigationContext.jsx';
+import NavigationContext from '#context/NavigationContext.jsx';
 import menuIcon from './icon-menu.svg';
-import Dropdown from '../../components/Dropdown.jsx';
+import Dropdown from '#components/Dropdown.jsx';
 
 const messageTopMenuStyles = css`
   flex: 0 0 5rem;
