@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { css } from '@linaria/core';
-import reactLogo from '../assets/react.svg';
+import reactLogo from '../../assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
 import MessageList from './MessageList.jsx';
 import NewMessageForm from './NewMessageForm.jsx';

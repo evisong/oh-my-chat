@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationContext from '../context/NavigationContext.jsx';
-import ChatView from './ChatView.jsx';
-import ContactView from './ContactView.jsx';
+import ChatView from './chat/ChatView.jsx';
+import ContactView from './contact/ContactView.jsx';
 
 const GlobalView = () => {
   const { activeView } = React.useContext(NavigationContext);

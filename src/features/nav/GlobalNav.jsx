@@ -1,9 +1,9 @@
 import React from 'react';
 import { css, cx } from '@linaria/core';
-import NavigationContext from '../context/NavigationContext.jsx';
-import reactLogo from '../assets/react.svg';
-import contactIcon from '../assets/icon-contact.svg';
-import messageIcon from '../assets/icon-message.svg';
+import NavigationContext from '../../context/NavigationContext.jsx';
+import reactLogo from '../../assets/react.svg';
+import contactIcon from './icon-contact.svg';
+import messageIcon from './icon-message.svg';
 
 const navStyles = css`
   margin: 28px 0;
