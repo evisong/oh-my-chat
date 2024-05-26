@@ -1,8 +1,8 @@
 import { css } from '@linaria/core';
 import './App.css';
-import { NavigationCtxProvider } from './context/NavigationContext.jsx';
-import GlobalNav from './components/GlobalNav.jsx';
-import GlobalView from './components/GlobalView.jsx';
+import { NavigationCtxProvider } from '../context/NavigationContext.jsx';
+import GlobalNav from './nav/GlobalNav.jsx';
+import GlobalView from './GlobalView.jsx';
 
 const rootStyles = css`
   display: flex;

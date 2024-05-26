@@ -1,5 +1,5 @@
 import { css, cx } from '@linaria/core';
-import useChatStore from '../stores/chatStore.js';
+import useChatStore from '../../stores/chatStore.js';
 
 const threadListItemStyles = css`
   height: 80px;
