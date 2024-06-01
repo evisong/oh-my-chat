@@ -1,6 +1,5 @@
-import React from 'react';
-import { css, cx } from '@linaria/core';
-import NavigationContext from '#context/NavigationContext.jsx';
+import { css } from '@linaria/core';
+import { NavLink } from 'react-router-dom';
 import reactLogo from '#assets/react.svg';
 import contactIcon from './icon-contact.svg';
 import messageIcon from './icon-message.svg';
@@ -49,22 +48,19 @@ const activeStyles = css`
 `;
 
 const GlobalNav = () => {
-  const { activeView, gotoChatView, gotoContactView } =
-    React.useContext(NavigationContext);
-
   return (
     <nav className={navStyles}>
       <img src={reactLogo} className={myAvatarStyles} alt="我的头像" />
       <ul className={topNavStyles}>
-        <li className={cx(activeView === 'chat' && activeStyles)}>
-          <a href="#" onClick={gotoChatView}>
+        <li>
+          <NavLink to="/chat" className={({ isActive }) => isActive && activeStyles}>
             <img src={messageIcon} alt="消息" />
-          </a>
+          </NavLink>
         </li>
-        <li className={cx(activeView === 'contact' && activeStyles)}>
-          <a href="#" onClick={gotoContactView}>
+        <li>
+          <NavLink to="/contacts" className={({ isActive }) => isActive && activeStyles}>
             <img src={contactIcon} alt="联系人" />
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>
