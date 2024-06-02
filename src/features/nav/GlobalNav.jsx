@@ -1,4 +1,4 @@
-import { css } from '@linaria/core';
+import { css, cx } from '@linaria/core';
 import { NavLink } from 'react-router-dom';
 import reactLogo from '#assets/react.svg';
 import contactIcon from './icon-contact.svg';
@@ -53,12 +53,12 @@ const GlobalNav = () => {
       <img src={reactLogo} className={myAvatarStyles} alt="我的头像" />
       <ul className={topNavStyles}>
         <li>
-          <NavLink to="/chat" className={({ isActive }) => isActive && activeStyles}>
+          <NavLink to="/chat" className={({ isActive }) => cx(isActive && activeStyles)}>
             <img src={messageIcon} alt="消息" />
           </NavLink>
         </li>
         <li>
-          <NavLink to="/contacts" className={({ isActive }) => isActive && activeStyles}>
+          <NavLink to="/contacts" className={({ isActive }) => cx(isActive && activeStyles)}>
             <img src={contactIcon} alt="联系人" />
           </NavLink>
         </li>
