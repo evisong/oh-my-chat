@@ -21,6 +21,12 @@ const contactDetailStyles = css`
     margin: 1.2rem;
     font-size: 1.6rem;
   }
+
+  & .form-error {
+    font-size: 0.7rem;
+    vertical-align: top;
+    color: red;
+  }
 `;
 const contactActionsStyles = css`
   flex: 1;
@@ -48,10 +54,16 @@ const ContactEdit = ({ contact, onClose }) => {
   const handleChange = (evt) => {
     setName(evt.target.value);
   };
+  const [errors, setErrors] = useState({});
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    updateContact({ ...contact, name });
-    onClose();
+    if (name.length === 0 || name.length > 20) {
+      setErrors((e) => ({ ...e, name: '联系人名称不应为空且不超过20个字' }));
+    } else {
+      setErrors({});
+      updateContact({ ...contact, name });
+      onClose();
+    }
   };
 
   return (
@@ -60,6 +72,7 @@ const ContactEdit = ({ contact, onClose }) => {
         <img src={contact.avatar} className="avatar" alt="头像" />
         <div className="contact-name">
           <input type="text" value={name} onChange={handleChange} />
+          {errors.name && <span className="form-error">{errors.name}</span>}
         </div>
       </div>
       <div className={contactActionsStyles}>
