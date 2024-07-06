@@ -154,7 +154,10 @@ const ContactDetail = ({ contact }) => {
         </FormField>
       </div>
       <div className={contactActionsStyles}>
-        <button onClick={() => navigate('/chat')} className="primary-button">
+        <button
+          onClick={() => navigate('/chat?contactId=' + id)}
+          className="primary-button"
+        >
           发消息
         </button>
         <button onClick={() => setIsEditing(true)} className="secondary-button">

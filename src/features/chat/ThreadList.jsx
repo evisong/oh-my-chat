@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { css, cx } from '@linaria/core';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import useChatStore from '#stores/chatStore.js';
 
 const threadListItemStyles = css`
@@ -98,6 +100,19 @@ const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
       contactAvatar: contact.avatar,
     };
   }) || [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    if (!data || !searchParams.has('contactId')) {
+      return;
+    }
+    const { threads } = data;
+    const targetContactId = parseInt(searchParams.get('contactId'));
+    const targetId = threads.find((t) => t.contactId === targetContactId)?.id;
+    if (targetId) {
+      onClickThreadItem(targetId);
+      setSearchParams({});
+    }
+  }, [searchParams, setSearchParams, data, onClickThreadItem]);
 
   return (
     <ul className={threadListStyles}>
