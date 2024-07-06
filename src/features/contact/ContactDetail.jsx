@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { css } from '@linaria/core';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import useChatStore from '#stores/chatStore.js';
-import FormField from '#components/FormField.jsx';
 
 const contactDetailStyles = css`
   flex: 2;
@@ -52,68 +50,33 @@ const contactActionsStyles = css`
 
 const ContactEdit = ({ contact, onClose }) => {
   const updateContact = useChatStore((state) => state.updateContact);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    setError,
-    formState: { errors },
-  } = useForm({ defaultValues: contact });
-  const avatar = watch('avatar');
-  const [isLoading, setIsLoading] = useState(false);
-  const doSubmit = async (formData) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`/api/contacts/${contact.id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const updated = await response.json();
-      updateContact(updated);
+  const [name, setName] = useState(contact.name);
+  const handleChange = (evt) => {
+    setName(evt.target.value);
+  };
+  const [errors, setErrors] = useState({});
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (name.length === 0 || name.length > 20) {
+      setErrors((e) => ({ ...e, name: '联系人名称不应为空且不超过20个字' }));
+    } else {
+      setErrors({});
+      updateContact({ ...contact, name });
       onClose();
-    } catch (error) {
-      setError('root.serverError', { message: error.message });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(doSubmit)}>
+    <form onSubmit={handleSubmit}>
       <div className={contactDetailStyles}>
-        <img src={avatar} className="avatar" alt="头像" />
-        <FormField label="名称" error={errors.name && '联系人名称不应为空且不超过20个字'}>
-          <input type="text" {...register('name', { required: true, maxLength: 20})} />
-        </FormField>
-        <FormField label="分组" error={errors.group}>
-          <label><input type="radio" value="1" {...register('group')} />同事</label>
-          <label><input type="radio" value="2" {...register('group')} />同学</label>
-          <label><input type="radio" value="3" {...register('group')} />亲友</label>
-        </FormField>
-        <FormField label="简介" error={errors.intro}>
-          <textarea {...register('intro')} />
-        </FormField>
-        <FormField label="头像" error={errors.avatar}>
-          <input type="hidden" {...register('avatar')} />
-          <input type="file" {...register('avatarFile', { onChange: (evt) => {
-            if (evt.target.files.length > 0) {
-              // 模拟上传头像并获取新URL
-              const newUrl = URL.createObjectURL(evt.target.files[0]);
-              setValue('avatar', newUrl);
-            }
-          }})} />
-        </FormField>
-        {errors.root?.serverError && (
-          <div className="form-error">{errors.root.serverError.message}</div>
-        )}
+        <img src={contact.avatar} className="avatar" alt="头像" />
+        <div className="contact-name">
+          <input type="text" value={name} onChange={handleChange} />
+          {errors.name && <span className="form-error">{errors.name}</span>}
+        </div>
       </div>
       <div className={contactActionsStyles}>
-        <button className="primary-button" type="submit" disabled={isLoading}>
+        <button className="primary-button" type="submit">
           保存
         </button>
         <button className="secondary-button" type="button" onClick={onClose}>
@@ -133,7 +96,7 @@ const ContactDetail = ({ contact }) => {
     return <div className={contactDetailStyles}>请选择联系人</div>;
   }
 
-  const { id, name, avatar, group, intro } = contact;
+  const { id, name, avatar } = contact;
   return isEditing ? (
     <ContactEdit contact={contact} onClose={() => setIsEditing(false)} />
   ) : (
@@ -141,17 +104,6 @@ const ContactDetail = ({ contact }) => {
       <div className={contactDetailStyles}>
         <img src={avatar} className="avatar" alt="头像" />
         <div className="contact-name">{name}</div>
-        <FormField label="分组">
-          <div>
-            {!group && '未分组'}
-            {group === '1' && '同事'}
-            {group === '2' && '同学'}
-            {group === '3' && '亲友'}
-          </div>
-        </FormField>
-        <FormField label="简介">
-          <div>{intro || '暂无'}</div>
-        </FormField>
       </div>
       <div className={contactActionsStyles}>
         <button onClick={() => navigate('/chat')} className="primary-button">
