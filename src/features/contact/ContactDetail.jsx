@@ -55,14 +55,31 @@ const ContactEdit = ({ contact, onClose }) => {
     setName(evt.target.value);
   };
   const [errors, setErrors] = useState({});
-  const handleSubmit = (evt) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     if (name.length === 0 || name.length > 20) {
       setErrors((e) => ({ ...e, name: '联系人名称不应为空且不超过20个字' }));
     } else {
       setErrors({});
-      updateContact({ ...contact, name });
-      onClose();
+      setIsLoading(true);
+      try {
+        const response = await fetch(`/api/contacts/${contact.id}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...contact, name }),
+        });
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const updated = await response.json();
+        updateContact(updated);
+        onClose();
+      } catch (error) {
+        console.error('更新联系人信息失败', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -76,7 +93,7 @@ const ContactEdit = ({ contact, onClose }) => {
         </div>
       </div>
       <div className={contactActionsStyles}>
-        <button className="primary-button" type="submit">
+        <button className="primary-button" type="submit" disabled={isLoading}>
           保存
         </button>
         <button className="secondary-button" type="button" onClick={onClose}>
