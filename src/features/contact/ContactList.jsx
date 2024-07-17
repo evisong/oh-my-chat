@@ -52,7 +52,7 @@ const contactListStyles = css`
 
 const ContactList = ({ contacts, selectedContactId, onClickContactItem }) => {
   return (
-    <ul className={contactListStyles}>
+    <ul className={contactListStyles} data-testid="contactList">
       {contacts.map((contact) => (
         <ContactListItem
           key={contact.id}

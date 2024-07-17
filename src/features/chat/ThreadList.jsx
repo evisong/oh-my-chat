@@ -127,7 +127,7 @@ const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
   }, [searchParams, setSearchParams, data, onClickThreadItem, mutation]);
 
   return (
-    <ul className={threadListStyles}>
+    <ul className={threadListStyles} data-testid="threadList">
       {isPending && <li className={statusStyles}>加载中...</li>}
       {isError && <li className={statusStyles}>加载失败，请刷新页面重试</li>}
       {mutation.isPending && <li className={statusStyles}>新建对话中...</li>}

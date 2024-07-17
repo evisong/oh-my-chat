@@ -47,7 +47,7 @@ const NewMessageForm = forwardRef(function NMForm({ onSubmitMessage }, ref) {
         onKeyUp={handleKeyUp}
         ref={inputRef}
       />
-      <input type="submit" value="发送" />
+      <input type="submit" value="发送" data-testid="sendMessageButton" />
     </form>
   );
 });
