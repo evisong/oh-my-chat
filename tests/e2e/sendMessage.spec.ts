@@ -9,27 +9,26 @@ test('选中联系人发消息', async ({ page }) => {
 
   // 2. 用户选中第二个联系人，点击联系人详情中的“发消息”按钮
   const contactList = page.getByTestId('contactList');
-  await expect(contactList.locator('li')).toHaveCount(6);
-  await contactList.locator('li').nth(1).click();
+  await expect(contactList.getByRole('listitem')).toHaveCount(6);
+  await contactList.getByRole('listitem').nth(1).click();
   await page.getByTestId('jumpToThreadsButton').click();
 
   // 3. 应用自动切回聊天视图并选中联系人的对话后，用户查看消息
   expect(page.url()).toContain('/chat');
   const threadList = page.getByTestId('threadList');
-  await expect(threadList.locator('li').nth(1)).toHaveCSS(
-    'background-color',
-    'rgba(255, 255, 255, 0.6)'
+  await expect(threadList.getByRole('listitem').nth(1)).toHaveAttribute(
+    'aria-selected',
+    'true'
   );
   const messageList = page.getByTestId('messageList');
-  await expect(messageList.locator('li')).toHaveCount(8);
+  await expect(messageList.getByRole('listitem')).toHaveCount(5);
 
   // 4. 用户输入新消息并发送
   const messageInput = page.getByPlaceholder('请输入消息…');
   const messageButton = page.getByTestId('sendMessageButton');
-  const currentMessageCount = await messageList.locator('li').count();
   await messageInput.fill('测试消息-1');
   await messageButton.click();
-  await expect(
-    messageList.locator('li').nth(currentMessageCount)
-  ).toContainText('测试消息-1');
+  await expect(messageList.getByRole('listitem').last()).toContainText(
+    '测试消息-1'
+  );
 });

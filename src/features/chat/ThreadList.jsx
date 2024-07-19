@@ -61,7 +61,10 @@ const ThreadListItem = ({
   active,
   onClick,
 }) => (
-  <li className={cx(threadListItemStyles, active && activeStyles)}>
+  <li
+    className={cx(threadListItemStyles, active && activeStyles)}
+    aria-selected={active}
+  >
     <a href="#" onClick={onClick}>
       <img src={contactAvatar} alt="头像" />
       <div className={threadStyles}>
