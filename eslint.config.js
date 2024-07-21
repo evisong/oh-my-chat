@@ -2,9 +2,10 @@ import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import jest from 'eslint-plugin-jest';
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'coverage'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -29,5 +30,9 @@ export default [
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    files: ['**/__tests__/**/*.[jt]s?(x)'],
+    ...jest.configs['flat/recommended'],
   },
 ];
