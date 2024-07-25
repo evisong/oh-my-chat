@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "jsx": "react-jsx"
+  }
+}

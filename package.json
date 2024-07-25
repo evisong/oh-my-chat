@@ -20,7 +20,8 @@
     "#components/*": "./src/components/*",
     "#context/*": "./src/context/*",
     "#hooks/*": "./src/hooks/*",
-    "#stores/*": "./src/stores/*"
+    "#stores/*": "./src/stores/*",
+    "#types/*": "./src/types/*"
   },
   "dependencies": {
     "@linaria/core": "^6.1.0",
@@ -54,6 +55,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
+    "typescript": "^5.5.4",
     "vite": "^4.4.5",
     "vite-plugin-mock-server": "^1.2.0"
   }
