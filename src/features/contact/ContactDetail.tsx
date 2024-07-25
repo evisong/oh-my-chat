@@ -67,7 +67,7 @@ const ContactEdit: React.FC<ContactEditProps> = ({ contact, onClose }) => {
     formState: { errors },
   } = useForm({ defaultValues: contact });
   const avatar = watch('avatar');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const doSubmit = async (formData) => {
     setIsLoading(true);
     try {
@@ -168,7 +168,7 @@ interface ContactDetailProps {
 
 const ContactDetail: React.FC<ContactDetailProps> = ({ contact }) => {
   const navigate = useNavigate();
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const removeContact = useChatStore((state) => state.removeContact);
 
   if (!contact) {
