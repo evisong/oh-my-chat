@@ -17,6 +17,11 @@ const threads = [
     updateTime: '2023-11-02',
     latestMessage: '现代React Web应用设计开发实践',
   },
+  {
+    id: 100,
+    contactId: 100,
+    updateTime: '2024-08-01',
+  }
 ];
 
 export default [

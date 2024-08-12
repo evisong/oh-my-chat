@@ -66,6 +66,11 @@ const mockContacts = [
     name: '贾姐',
     avatar: reactLogo,
   },
+  {
+    id: 100,
+    name: 'AI小助手',
+    avatar: reactLogo,
+  }
 ];
 
 const useChatStore = create(
