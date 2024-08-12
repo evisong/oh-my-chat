@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { css } from '@linaria/core';
 import { ChatOllama } from '@langchain/ollama';
+import { produce } from 'immer';
 import reactLogo from '#assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
 import MessageList from './MessageList.jsx';
@@ -78,17 +79,24 @@ const MessagesPane = ({ selectedThreadId }) => {
     });
     if (selectedThreadId === 100) {
       const llm = new ChatOllama({ model: 'llama3.1' });
-      const response = await llm.invoke(content);
+      const stream = await llm.stream(content);
       setMessages((currentMessages) => {
         const newMessage = {
           id: currentMessages.length + 1,
-          content: response.content,
+          content: '',
           from: 'ollama',
           fromAvatar: reactLogo,
           sentTime: new Date().toISOString(),
         };
         return [...currentMessages, newMessage];
       });
+      for await (const chunk of stream) {
+        setMessages((currentMessages) =>
+          produce(currentMessages, (draft) => {
+            draft[draft.length - 1].content += chunk.content;
+          })
+        );
+      }
     }
   };
 
