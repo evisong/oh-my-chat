@@ -24,6 +24,8 @@
     "#types/*": "./src/types/*"
   },
   "dependencies": {
+    "@langchain/core": "^0.2.20",
+    "@langchain/ollama": "^0.0.2",
     "@linaria/core": "^6.1.0",
     "@linaria/react": "^6.1.0",
     "@tanstack/react-query": "^5.50.1",

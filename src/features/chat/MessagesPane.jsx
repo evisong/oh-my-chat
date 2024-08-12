@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { css } from '@linaria/core';
+import { ChatOllama } from '@langchain/ollama';
 import reactLogo from '#assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
 import MessageList from './MessageList.jsx';
@@ -64,7 +65,7 @@ const MessagesPane = ({ selectedThreadId }) => {
   useEffect(() => {
     if (!isLoading) messageFormRef.current.focus();
   }, [isLoading]);
-  const handleSubmitMessage = (content) => {
+  const handleSubmitMessage = async (content) => {
     setMessages((currentMessages) => {
       const newMessage = {
         id: currentMessages.length + 1,
@@ -75,6 +76,20 @@ const MessagesPane = ({ selectedThreadId }) => {
       };
       return [...currentMessages, newMessage];
     });
+    if (selectedThreadId === 100) {
+      const llm = new ChatOllama({ model: 'llama3.1' });
+      const response = await llm.invoke(content);
+      setMessages((currentMessages) => {
+        const newMessage = {
+          id: currentMessages.length + 1,
+          content: response.content,
+          from: 'ollama',
+          fromAvatar: reactLogo,
+          sentTime: new Date().toISOString(),
+        };
+        return [...currentMessages, newMessage];
+      });
+    }
   };
 
   return (
