@@ -41,7 +41,13 @@ const useFetchMessages = (threadId) => {
         }
       }
     };
-    fetchMessages(threadId);
+    if (threadId !== 100) {
+      fetchMessages(threadId);
+    } else {
+      setIsLoading(false);
+      setContactName('AI小助手');
+      setMessages([]);
+    }
 
     return function cleanup() {
       shouldIgnore = true;
