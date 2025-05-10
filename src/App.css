@@ -80,3 +80,85 @@
   width: 2rem;
   height: 2rem;
 }
+
+.thread-top-menu {
+  flex: 0 0 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #9a9a9a;
+  height: 80px;
+  background-color: #cecece;
+}
+
+.thread-top-menu input,
+.thread-top-menu button {
+  height: 2rem;
+}
+
+.thread-list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.thread-list li {
+  height: 80px;
+}
+
+.thread-list li.active {
+  background-color: #ffffff99;
+}
+
+.thread-list li > a {
+  padding: 0 1.2rem;
+  display: flex;
+  align-items: center;
+  column-gap: 1.2rem;
+  height: 100%;
+}
+
+.thread-list li > a:hover,
+.thread-list li > a:active {
+  background-color: #ffffff77;
+}
+
+.thread-list li > a > .avatar {
+  border-radius: 50%;
+  flex: 0 0 2rem;
+  height: 2rem;
+  background-color: #eeeeee;
+}
+
+.thread-list li > a > .thread {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.thread .contact-name {
+  flex: 2;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.thread .update-time {
+  flex: 1;
+  color: #9a9a9a;
+}
+
+.thread .latest-message {
+  flex: 0 0 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #9a9a9a;
+}
