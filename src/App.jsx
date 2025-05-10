@@ -106,6 +106,52 @@ const MessagesPane = () => (
   </>
 );
 
+const ContactsPane = () => (
+  <>
+    <header className="contact-top-menu">
+      <form>
+        <input maxLength={20} />
+        <input type="submit" value="搜索联系人" />
+      </form>
+      <button>添加联系人</button>
+    </header>
+    <ul className="contact-list">
+      <li>
+        <a href="#">
+          <img src={reactLogo} className="avatar" alt="头像" />
+          <div className="contact-name">小帅</div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src={reactLogo} className="avatar" alt="头像" />
+          <div className="contact-name">小白</div>
+        </a>
+      </li>
+      <li className="active">
+        <a href="#">
+          <img src={reactLogo} className="avatar" alt="头像" />
+          <div className="contact-name">小美</div>
+        </a>
+      </li>
+    </ul>
+  </>
+);
+
+const ContactDetail = () => (
+  <>
+    <div className="contact-detail">
+      <img src={reactLogo} className="avatar" alt="头像" />
+      <div className="contact-name">小美</div>
+    </div>
+    <div className="contact-actions">
+      <button className="primary-button">发消息</button>
+      <button className="secondary-button">修改联系人</button>
+      <button className="secondary-button">删除联系人</button>
+    </div>
+  </>
+);
+
 function App() {
   const [activeView, setActiveView] = useState('chat');
 
@@ -126,8 +172,12 @@ function App() {
           </li>
         </ul>
       </nav>
-      <aside>{activeView === 'chat' && <ThreadsPane />}</aside>
-      <main>{activeView === 'chat' && <MessagesPane />}</main>
+      <aside>
+        {activeView === 'chat' ? <ThreadsPane /> : <ContactsPane />}
+      </aside>
+      <main>
+        {activeView === 'chat' ? <MessagesPane /> : <ContactDetail />}
+      </main>
     </div>
   );
 }
