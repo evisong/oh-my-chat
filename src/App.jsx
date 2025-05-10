@@ -1,34 +1,32 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import contactIcon from './assets/icon-contact.svg';
+import messageIcon from './assets/icon-message.svg';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [activeView, setActiveView] = useState('chat');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>我聊 oh-my-chat</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="root">
+      <nav>
+        <img src={reactLogo} className="my-avatar" alt="我的头像" />
+        <ul className="top-nav">
+          <li className={activeView === 'chat' ? 'active' : undefined}>
+            <a href="#" onClick={() => setActiveView('chat')}>
+              <img src={messageIcon} alt="消息" />
+            </a>
+          </li>
+          <li className={activeView === 'contact' ? 'active' : undefined}>
+            <a href="#" onClick={() => setActiveView('contact')}>
+              <img src={contactIcon} alt="联系人" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <aside>{/* TODO: 对话列表 */}</aside>
+      <main>{/* TODO: 消息列表 */}</main>
+    </div>
   );
 }
 
