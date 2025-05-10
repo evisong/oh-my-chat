@@ -162,3 +162,80 @@
   text-overflow: ellipsis;
   color: #9a9a9a;
 }
+
+.message-top-menu {
+  flex: 0 0 5rem;
+  padding: 0 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #9a9a9a;
+  height: 80px;
+  background-color: #efefef;
+}
+
+.message-top-menu > h1 {
+  font-size: 1.4rem;
+}
+
+.message-top-menu > button > img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.message-list {
+  flex: 1;
+  margin: 0 1.2rem;
+  padding: 1.2rem 0;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.message-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  column-gap: 1.2rem;
+  min-height: 2rem;
+}
+
+.message-list li.active {
+  background-color: #ffffff99;
+}
+
+.message-list li.from-me {
+  flex-direction: row-reverse;
+}
+
+.message-list li > .avatar {
+  border-radius: 50%;
+  flex: 0 0 2rem;
+  height: 2rem;
+  background-color: #eeeeee;
+}
+
+.message-list li > .message {
+  flex: 0 1 auto;
+  max-width: 50%;
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  background-color: #8dfa69;
+}
+
+.compose-message {
+  margin: 1.2rem;
+  flex: 0 0 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.2rem;
+}
+
+.compose-message > textarea {
+  flex: 1;
+  height: 5rem;
+}

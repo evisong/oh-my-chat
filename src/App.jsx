@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import contactIcon from './assets/icon-contact.svg';
+import menuIcon from './assets/icon-menu.svg';
 import messageIcon from './assets/icon-message.svg';
 import './App.css';
 
@@ -66,6 +67,45 @@ const ThreadsPane = () => {
   );
 };
 
+const MessagesPane = () => (
+  <>
+    <header className="message-top-menu">
+      <h1>小白</h1>
+      <button>
+        <img src={menuIcon} alt="消息菜单" />
+      </button>
+    </header>
+    <ul className="message-list">
+      <li className="from-me">
+        <img src={reactLogo} className="avatar" alt="头像" />
+        <p className="message">你好React！</p>
+      </li>
+      <li>
+        <img src={reactLogo} className="avatar" alt="头像" />
+        <p className="message">你好React！</p>
+      </li>
+      <li className="from-me">
+        <img src={reactLogo} className="avatar" alt="头像" />
+        <p className="message">
+          欢迎学习React Web应用开发，你现在看到的是本书的聊天应用。
+        </p>
+      </li>
+      <li>
+        <img src={reactLogo} className="avatar" alt="头像" />
+        <p className="message">这款应用有名字吗？</p>
+      </li>
+      <li className="from-me">
+        <img src={reactLogo} className="avatar" alt="头像" />
+        <p className="message">有的，就叫《我聊》。</p>
+      </li>
+    </ul>
+    <form className="compose-message">
+      <textarea placeholder="请输入消息…" />
+      <input type="submit" value="发送" />
+    </form>
+  </>
+);
+
 function App() {
   const [activeView, setActiveView] = useState('chat');
 
@@ -87,7 +127,7 @@ function App() {
         </ul>
       </nav>
       <aside>{activeView === 'chat' && <ThreadsPane />}</aside>
-      <main>{/* TODO: 消息列表 */}</main>
+      <main>{activeView === 'chat' && <MessagesPane />}</main>
     </div>
   );
 }
