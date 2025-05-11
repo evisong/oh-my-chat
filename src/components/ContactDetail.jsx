@@ -1,4 +1,8 @@
+import React from 'react';
+import NavigationContext from '../context/NavigationContext.jsx';
+
 const ContactDetail = ({ contact }) => {
+  const { gotoChatView } = React.useContext(NavigationContext);
   if (!contact) {
     return (<div className="contact-detail">请选择联系人</div>);
   }
@@ -11,7 +15,9 @@ const ContactDetail = ({ contact }) => {
         <div className="contact-name">{name}</div>
       </div>
       <div className="contact-actions">
-        <button className="primary-button">发消息</button>
+        <button onClick={gotoChatView} className="primary-button">
+          发消息
+        </button>
         <button className="secondary-button">修改联系人</button>
         <button className="secondary-button">删除联系人</button>
       </div>
