@@ -2,12 +2,12 @@ import React from 'react';
 import NavigationContext from '../context/NavigationContext';
 import menuIcon from '../assets/icon-menu.svg';
 
-const MessageTopMenu = () => {
+const MessageTopMenu = ({ contactName }) => {
   const { gotoContactView } = React.useContext(NavigationContext);
 
   return (
     <header className="message-top-menu">
-      <h1>小白</h1>
+      <h1>{contactName}</h1>
       <button onClick={gotoContactView}>
         <img src={menuIcon} alt="消息菜单" />
       </button>

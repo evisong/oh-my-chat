@@ -59,9 +59,8 @@ const ThreadListItem = ({
   </li>
 );
 
-const ThreadList = () => {
+const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
   const [threads, setThreads] = useState(mockThreads);
-  const [selectedThreadId, setSelectedThreadId] = useState(null);
 
   return (
     <ul className="thread-list">
@@ -69,7 +68,7 @@ const ThreadList = () => {
         <ThreadListItem
           key={thread.id}
           active={thread.id === selectedThreadId}
-          onClick={() => setSelectedThreadId(thread.id)}
+          onClick={() => onClickThreadItem(thread.id)}
           {...thread}
         />
       ))}
