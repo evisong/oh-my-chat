@@ -5,10 +5,18 @@ const NewMessageForm = ({ onSubmitMessage }) => {
   const handleChange = (evt) => {
     setContent(evt.target.value);
   };
+  const handleKeyDown = (evt) => {
+    if (evt.key === 'Enter' && evt.shiftKey) {
+      evt.preventDefault();
+      evt.target.form.requestSubmit();
+    }
+  };
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitMessage(content);
-    setContent('');
+    if (content && content.trim().length > 0) {
+      onSubmitMessage(content);
+      setContent('');
+    }
   };
   const inputRef = useRef(null);
   useEffect(() => inputRef.current.focus(), []);
@@ -19,6 +27,7 @@ const NewMessageForm = ({ onSubmitMessage }) => {
         placeholder="请输入消息…"
         value={content}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         ref={inputRef}
       />
       <input type="submit" value="发送" />
