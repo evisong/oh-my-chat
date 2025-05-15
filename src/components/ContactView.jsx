@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Aside from './Aside.jsx';
+import Main from './Main.jsx';
 import ContactsPane from './ContactsPane.jsx';
 import ContactDetail from './ContactDetail.jsx';
 import reactLogo from '../assets/react.svg';
@@ -42,16 +44,16 @@ const ContactView = () => {
   const selectedContact = contacts.find((c) => c.id === selectedContactId);
   return (
     <>
-      <aside>
+      <Aside>
         <ContactsPane
           contacts={contacts}
           selectedContactId={selectedContactId}
           onClickContactItem={setSelectedContactId}
         />
-      </aside>
-      <main>
+      </Aside>
+      <Main>
         <ContactDetail contact={selectedContact} />
-      </main>
+      </Main>
     </>
   );
 };
