@@ -1,6 +1,7 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import { css } from '@linaria/core';
 import NavigationContext from '../context/NavigationContext.jsx';
+import useChatStore from '../stores/chatStore.js';
 
 const contactDetailStyles = css`
   flex: 2;
@@ -41,14 +42,51 @@ const contactActionsStyles = css`
   }
 `;
 
+const ContactEdit = ({ contact, onClose }) => {
+  const updateContact = useChatStore((state) => state.updateContact);
+  const [name, setName] = useState(contact.name);
+  const handleChange = (evt) => {
+    setName(evt.target.value);
+  };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    updateContact({ ...contact, name });
+    onClose();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className={contactDetailStyles}>
+        <img src={contact.avatar} className="avatar" alt="头像" />
+        <div className="contact-name">
+          <input type="text" value={name} onChange={handleChange} />
+        </div>
+      </div>
+      <div className={contactActionsStyles}>
+        <button className="primary-button" type="submit">
+          保存
+        </button>
+        <button className="secondary-button" type="button" onClick={onClose}>
+          取消
+        </button>
+      </div>
+    </form>
+  );
+};
+
 const ContactDetail = ({ contact }) => {
-  const { gotoChatView } = React.useContext(NavigationContext);
+  const { gotoChatView } = useContext(NavigationContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const removeContact = useChatStore((state) => state.removeContact);
+
   if (!contact) {
-    return (<div className={contactDetailStyles}>请选择联系人</div>);
+    return <div className={contactDetailStyles}>请选择联系人</div>;
   }
 
-  const { name, avatar } = contact;
-  return (
+  const { id, name, avatar } = contact;
+  return isEditing ? (
+    <ContactEdit contact={contact} onClose={() => setIsEditing(false)} />
+  ) : (
     <>
       <div className={contactDetailStyles}>
         <img src={avatar} className="avatar" alt="头像" />
@@ -58,8 +96,12 @@ const ContactDetail = ({ contact }) => {
         <button onClick={gotoChatView} className="primary-button">
           发消息
         </button>
-        <button className="secondary-button">修改联系人</button>
-        <button className="secondary-button">删除联系人</button>
+        <button onClick={() => setIsEditing(true)} className="secondary-button">
+          修改联系人
+        </button>
+        <button onClick={() => removeContact(id)} className="secondary-button">
+          删除联系人
+        </button>
       </div>
     </>
   );
