@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { css } from '@linaria/core';
-import NavigationContext from '#context/NavigationContext.jsx';
 import useChatStore from '#stores/chatStore.js';
 
 const contactDetailStyles = css`
@@ -75,7 +75,7 @@ const ContactEdit = ({ contact, onClose }) => {
 };
 
 const ContactDetail = ({ contact }) => {
-  const { gotoChatView } = useContext(NavigationContext);
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const removeContact = useChatStore((state) => state.removeContact);
 
@@ -93,7 +93,7 @@ const ContactDetail = ({ contact }) => {
         <div className="contact-name">{name}</div>
       </div>
       <div className={contactActionsStyles}>
-        <button onClick={gotoChatView} className="primary-button">
+        <button onClick={() => navigate('/chat')} className="primary-button">
           发消息
         </button>
         <button onClick={() => setIsEditing(true)} className="secondary-button">

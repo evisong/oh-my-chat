@@ -1,6 +1,5 @@
-import React from 'react';
+import { useNavigate } from 'react-router';
 import { css } from '@linaria/core';
-import NavigationContext from '#context/NavigationContext.jsx';
 import menuIcon from './icon-menu.svg';
 import Dropdown from '#components/Dropdown.jsx';
 
@@ -26,15 +25,17 @@ const messageTopMenuStyles = css`
 `;
 
 const MessageTopMenu = ({ contactName }) => {
-  const { gotoContactView } = React.useContext(NavigationContext);
+  const navigate = useNavigate();
 
   return (
     <header className={messageTopMenuStyles}>
       <h1>{contactName}</h1>
-      <Dropdown menuItems={[
-        { label: '查看联系人', onClick: gotoContactView },
-        { label: '清空消息' },
-      ]}>
+      <Dropdown
+        menuItems={[
+          { label: '查看联系人', onClick: () => navigate('/contacts') },
+          { label: '清空消息' },
+        ]}
+      >
         <img src={menuIcon} alt="消息菜单" />
       </Dropdown>
     </header>
