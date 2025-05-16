@@ -1,44 +1,5 @@
-import { useState } from 'react';
 import { css, cx } from '@linaria/core';
-import reactLogo from '../assets/react.svg';
-
-const mockThreads = [
-  {
-    id: 1,
-    contactName: '小帅',
-    contactAvatar: reactLogo,
-    updateTime: '2023-11-04',
-    latestMessage: '书的主题是现代React Web应用的设计开发实践。',
-  },
-  {
-    id: 2,
-    contactName: '小白',
-    contactAvatar: reactLogo,
-    updateTime: '2023-11-03',
-    latestMessage: '有的，就叫《我聊》。',
-  },
-  {
-    id: 3,
-    contactName: '小美',
-    contactAvatar: reactLogo,
-    updateTime: '2023-11-02',
-    latestMessage: '现代React Web应用设计开发实践',
-  },
-  {
-    id: 4,
-    contactName: '大壮',
-    contactAvatar: reactLogo,
-    updateTime: '2023-11-02',
-    latestMessage: 'Web应用的名字叫《我聊》',
-  },
-  {
-    id: 5,
-    contactName: '老宋',
-    contactAvatar: reactLogo,
-    updateTime: '2023-10-31',
-    latestMessage: '项目名为oh-my-chat',
-  },
-];
+import useChatStore from '../stores/chatStore.js';
 
 const threadListItemStyles = css`
   height: 80px;
@@ -119,11 +80,20 @@ const threadListStyles = css`
 `;
 
 const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
-  const [threads, setThreads] = useState(mockThreads);
+  const threads = useChatStore((state) => state.threads);
+  const contacts = useChatStore((state) => state.contacts);
+  const threadsWithContactInfo = threads.map((thread) => {
+    const contact = contacts.find((c) => c.id === thread.contactId);
+    return {
+      ...thread,
+      contactName: contact.name,
+      contactAvatar: contact.avatar,
+    };
+  });
 
   return (
     <ul className={threadListStyles}>
-      {threads.map((thread) => (
+      {threadsWithContactInfo.map((thread) => (
         <ThreadListItem
           key={thread.id}
           active={thread.id === selectedThreadId}
