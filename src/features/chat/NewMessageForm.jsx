@@ -1,5 +1,20 @@
 import { useRef, useImperativeHandle } from 'react';
+import { useFormStatus } from 'react-dom';
 import { css } from '@linaria/core';
+
+const sendButtonStyles = css`
+  padding: 0.5rem 0;
+  width: 4rem;
+`;
+
+function SendButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending} className={sendButtonStyles}>
+      {pending ? '发送中...' : '发送'}
+    </button>
+  );
+}
 
 const composeMessageStyles = css`
   margin: 1.2rem;
@@ -43,7 +58,7 @@ const NewMessageForm = ({ onSubmitMessage, ref }) => {
         onKeyDown={handleKeyDown}
         ref={inputRef}
       />
-      <input type="submit" value="发送" />
+      <SendButton />
     </form>
   );
 };
