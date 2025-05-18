@@ -32,4 +32,29 @@ export default [
       }, 1000);
     },
   },
+  {
+    pattern: '/api/threads',
+    method: 'POST',
+    handle: (req, res) => {
+      req.on('data', (chunk) => {
+        const { contactId } = JSON.parse(chunk);
+        let thread = threads.find((t) => t.contactId === contactId);
+        if (!thread) {
+          thread = {
+            id: threads.length + 1,
+            contactId,
+            updateTime: new Date().toISOString().slice(0, 10),
+            latestMessage: null,
+          };
+          threads.unshift(thread);
+          console.log('新建对话', thread);
+        }
+        res.setHeader('Content-Type', 'application/json');
+        // res.end(JSON.stringify(thread));
+        setTimeout(() => {
+          res.end(JSON.stringify(thread));
+        }, 1000);
+      });
+    },
+  },
 ];

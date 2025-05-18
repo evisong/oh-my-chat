@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router';
 import { css, cx } from '@linaria/core';
 import useChatStore from '#stores/chatStore.js';
@@ -87,9 +87,19 @@ const statusStyles = css`
 `;
 
 const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
+  const queryClient = useQueryClient();
   const { data, isPending, isError } = useQuery({
     queryKey: ['threads'],
     queryFn: () => fetch('/api/threads').then((res) => res.json()),
+  });
+  const mutation = useMutation({
+    mutationFn: (newThread) =>
+      fetch('/api/threads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newThread),
+      }).then((res) => res.json()),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['threads'] }),
   });
   const contacts = useChatStore((state) => state.contacts);
   const threadsWithContactInfo = data?.threads?.map((thread) => {
@@ -111,13 +121,16 @@ const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
     if (targetId) {
       onClickThreadItem(targetId);
       setSearchParams({});
+    } else if (mutation.isIdle) {
+      mutation.mutate({ contactId: targetContactId });
     }
-  }, [searchParams, setSearchParams, data, onClickThreadItem]);
+  }, [searchParams, setSearchParams, data, onClickThreadItem, mutation]);
 
   return (
     <ul className={threadListStyles}>
       {isPending && <li className={statusStyles}>加载中...</li>}
       {isError && <li className={statusStyles}>加载失败，请刷新页面重试</li>}
+      {mutation.isPending && <li className={statusStyles}>新建对话中...</li>}
       {threadsWithContactInfo.map((thread) => (
         <ThreadListItem
           key={thread.id}
