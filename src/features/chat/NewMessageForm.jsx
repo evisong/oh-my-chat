@@ -1,4 +1,4 @@
-import { useState, useRef, useImperativeHandle } from 'react';
+import { useRef, useImperativeHandle } from 'react';
 import { css } from '@linaria/core';
 
 const composeMessageStyles = css`
@@ -16,21 +16,16 @@ const composeMessageStyles = css`
 `;
 
 const NewMessageForm = ({ onSubmitMessage, ref }) => {
-  const [content, setContent] = useState('');
-  const handleChange = (evt) => {
-    setContent(evt.target.value);
-  };
   const handleKeyDown = (evt) => {
     if (evt.key === 'Enter' && evt.shiftKey) {
       evt.preventDefault();
       evt.target.form.requestSubmit();
     }
   };
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const formAction = async (formData) => {
+    const content = formData.get('message');
     if (content && content.trim().length > 0) {
-      onSubmitMessage(content);
-      setContent('');
+      await onSubmitMessage(content);
     }
   };
   const inputRef = useRef(null);
@@ -41,11 +36,10 @@ const NewMessageForm = ({ onSubmitMessage, ref }) => {
   }));
 
   return (
-    <form className={composeMessageStyles} onSubmit={handleSubmit}>
+    <form className={composeMessageStyles} action={formAction}>
       <textarea
+        name="message"
         placeholder="请输入消息…"
-        value={content}
-        onChange={handleChange}
         onKeyDown={handleKeyDown}
         ref={inputRef}
       />

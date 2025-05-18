@@ -58,7 +58,9 @@ const MessagesPane = ({ selectedThreadId }) => {
   useEffect(() => {
     if (!isLoading) messageFormRef.current.focus();
   }, [isLoading]);
-  const handleSubmitMessage = (content) => {
+  const handleSubmitMessage = async (content) => {
+    // 模拟异步请求
+    await new Promise((resolve) => setTimeout(resolve, 500));
     setMessages((currentMessages) => {
       const newMessage = {
         id: currentMessages.length + 1,
