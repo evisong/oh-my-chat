@@ -11,7 +11,7 @@ const Li = styled.li`
 `;
 
 const MessageLi = styled(Li)`
-  flex-direction: ${({fromMe}) => (fromMe ? 'row-reverse' : 'row')};
+  flex-direction: ${({ fromMe }) => (fromMe ? 'row-reverse' : 'row')};
 
   & > img {
     border-radius: 50%;
@@ -28,11 +28,12 @@ const MessageLi = styled(Li)`
     border: 1px solid #bbbbbb;
     border-radius: 5px;
     background-color: #8dfa69;
+    color: ${({ sending }) => (sending ? '#9a9a9a' : 'inherit')};
   }
 `;
 
-const MessageItem = ({ content, from, fromAvatar }) => (
-  <MessageLi fromMe={from === 'me'}>
+const MessageItem = ({ content, from, fromAvatar, sending = false }) => (
+  <MessageLi fromMe={from === 'me'} sending={sending}>
     <img src={fromAvatar} alt="头像" />
     <p className="message">{content}</p>
   </MessageLi>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useOptimistic } from 'react';
 import { css } from '@linaria/core';
 import reactLogo from '#assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
@@ -54,29 +54,41 @@ const useFetchMessages = (threadId) => {
 const MessagesPane = ({ selectedThreadId }) => {
   const { isLoading, contactName, messages, setMessages } =
     useFetchMessages(selectedThreadId);
+  const [optimisticMsgs, addOptimisticMsg] = useOptimistic(
+    messages,
+    (currentMsgs, optimisticMsg) => [...currentMsgs, optimisticMsg]
+  );
   const messageFormRef = useRef(null);
   useEffect(() => {
     if (!isLoading) messageFormRef.current.focus();
   }, [isLoading]);
   const handleSubmitMessage = async (content) => {
+    const newMessage = {
+      content,
+      from: 'me',
+      fromAvatar: reactLogo,
+      sentTime: new Date().toISOString(),
+    };
+    addOptimisticMsg({
+      id: -1,
+      ...newMessage,
+      sending: true,
+    });
     // 模拟异步请求
     await new Promise((resolve) => setTimeout(resolve, 500));
-    setMessages((currentMessages) => {
-      const newMessage = {
+    setMessages((currentMessages) => [
+      ...currentMessages,
+      {
         id: currentMessages.length + 1,
-        content,
-        from: 'me',
-        fromAvatar: reactLogo,
-        sentTime: new Date().toISOString(),
-      };
-      return [...currentMessages, newMessage];
-    });
+        ...newMessage,
+      },
+    ]);
   };
 
   return (
     <>
       <MessageTopMenu contactName={contactName} />
-      <MessageList messages={messages} />
+      <MessageList messages={optimisticMsgs} />
       <NewMessageForm
         key={selectedThreadId}
         onSubmitMessage={handleSubmitMessage}
