@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { css } from '@linaria/core';
 import useChatStore from '#stores/chatStore.js';
 import FormField from '#components/FormField.jsx';
+import { Contact, ContactGroupEnum } from '#types/Contact.types.ts';
 
 const contactDetailStyles = css`
   flex: 2;
@@ -50,7 +51,12 @@ const contactActionsStyles = css`
   }
 `;
 
-const ContactEdit = ({ contact, onClose }) => {
+interface ContactEditProps {
+  contact: Contact;
+  onClose: () => void;
+}
+
+const ContactEdit: React.FC<ContactEditProps> = ({ contact, onClose }) => {
   const updateContact = useChatStore((state) => state.updateContact);
   const {
     register,
@@ -98,15 +104,27 @@ const ContactEdit = ({ contact, onClose }) => {
         </FormField>
         <FormField label="分组" error={errors.group}>
           <label>
-            <input type="radio" value="1" {...register('group')} />
+            <input
+              type="radio"
+              value={ContactGroupEnum.Colleague}
+              {...register('group')}
+            />
             同事
           </label>
           <label>
-            <input type="radio" value="2" {...register('group')} />
+            <input
+              type="radio"
+              value={ContactGroupEnum.Classmate}
+              {...register('group')}
+            />
             同学
           </label>
           <label>
-            <input type="radio" value="3" {...register('group')} />
+            <input
+              type="radio"
+              value={ContactGroupEnum.Friend}
+              {...register('group')}
+            />
             亲友
           </label>
         </FormField>
@@ -144,7 +162,11 @@ const ContactEdit = ({ contact, onClose }) => {
   );
 };
 
-const ContactDetail = ({ contact }) => {
+interface ContactDetailProps {
+  contact: Contact;
+}
+
+const ContactDetail: React.FC<ContactDetailProps> = ({ contact }) => {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const removeContact = useChatStore((state) => state.removeContact);
@@ -164,9 +186,9 @@ const ContactDetail = ({ contact }) => {
         <FormField label="分组">
           <div>
             {!group && '未分组'}
-            {group === '1' && '同事'}
-            {group === '2' && '同学'}
-            {group === '3' && '亲友'}
+            {group === ContactGroupEnum.Colleague && '同事'}
+            {group === ContactGroupEnum.Classmate && '同学'}
+            {group === ContactGroupEnum.Friend && '亲友'}
           </div>
         </FormField>
         <FormField label="简介">

@@ -1,7 +1,7 @@
 import Aside from '#components/Aside.jsx';
 import Main from '#components/Main.jsx';
 import ContactsPane from './ContactsPane.jsx';
-import ContactDetail from './ContactDetail.jsx';
+import ContactDetail from './ContactDetail.tsx';
 import useChatStore from '#stores/chatStore.js';
 
 const ContactView = () => {

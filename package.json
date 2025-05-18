@@ -20,7 +20,8 @@
     "#components/*": "./src/components/*",
     "#context/*": "./src/context/*",
     "#hooks/*": "./src/hooks/*",
-    "#stores/*": "./src/stores/*"
+    "#stores/*": "./src/stores/*",
+    "#types/*": "./src/types/*"
   },
   "dependencies": {
     "@linaria/core": "^6.3.0",
