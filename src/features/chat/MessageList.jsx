@@ -75,7 +75,7 @@ const MessageTimestamp = ({ sentTime }) => {
   }, [sentTime]);
 
   return (
-    <TimestampLi>{timestamp}</TimestampLi>
+    <TimestampLi role='separator'>{timestamp}</TimestampLi>
   );
 };
 
@@ -109,7 +109,7 @@ const MessageList = ({ messages }) => {
           <MessageItem {...message} />
         </React.Fragment>
       ))}
-      <li style={{ minHeight: 0 }} ref={lastLiRef} />
+      <li style={{ minHeight: 0 }} ref={lastLiRef} role='none' />
     </ul>
   );
 };
