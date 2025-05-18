@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef, useOptimistic } from 'react';
+import { flushSync } from 'react-dom';
+import { ChatOllama } from '@langchain/ollama';
 import { css } from '@linaria/core';
 import reactLogo from '#assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
@@ -68,6 +70,7 @@ const MessagesPane = ({ selectedThreadId }) => {
   useEffect(() => {
     if (!isLoading) messageFormRef.current.focus();
   }, [isLoading]);
+  const isAiThread = selectedThreadId === 100;
   const handleSubmitMessage = async (content) => {
     const newMessage = {
       content,
@@ -75,20 +78,53 @@ const MessagesPane = ({ selectedThreadId }) => {
       fromAvatar: reactLogo,
       sentTime: new Date().toISOString(),
     };
-    addOptimisticMsg({
-      id: -1,
-      ...newMessage,
-      sending: true,
-    });
-    // 模拟异步请求
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setMessages((currentMessages) => [
-      ...currentMessages,
-      {
-        id: currentMessages.length + 1,
+    if (!isAiThread) {
+      addOptimisticMsg({
+        id: -1,
         ...newMessage,
-      },
-    ]);
+        sending: true,
+      });
+      // 模拟异步请求
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        {
+          id: currentMessages.length + 1,
+          ...newMessage,
+        },
+      ]);
+    } else {
+      flushSync(() => {
+        setMessages((currentMessages) => [
+          ...currentMessages,
+          {
+            id: currentMessages.length + 1,
+            ...newMessage,
+          },
+        ]);
+      });
+      const aiMessage = {
+        content: '...',
+        from: 'ollama',
+        fromAvatar: reactLogo,
+        sentTime: new Date().toISOString(),
+      };
+      addOptimisticMsg({
+        id: -1,
+        ...aiMessage,
+        sending: true,
+      });
+      const llm = new ChatOllama({ model: 'llama3.1' });
+      const response = await llm.invoke(content);
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        {
+          id: currentMessages.length + 1,
+          ...aiMessage,
+          content: response.content,
+        },
+      ]);
+    }
   };
 
   return (
