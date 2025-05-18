@@ -1,4 +1,4 @@
-import { use } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { css, cx } from '@linaria/core';
 import useChatStore from '#stores/chatStore.js';
 
@@ -79,25 +79,30 @@ const threadListStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
 `;
+const statusStyles = css`
+  padding: 0.5rem;
+  text-align: center;
+`;
 
-const ThreadList = ({
-  threadsPromise,
-  selectedThreadId,
-  onClickThreadItem,
-}) => {
-  const threads = use(threadsPromise);
+const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['threads'],
+    queryFn: () => fetch('/api/threads').then((res) => res.json()),
+  });
   const contacts = useChatStore((state) => state.contacts);
-  const threadsWithContactInfo = threads.map((thread) => {
+  const threadsWithContactInfo = data?.threads?.map((thread) => {
     const contact = contacts.find((c) => c.id === thread.contactId);
     return {
       ...thread,
       contactName: contact.name,
       contactAvatar: contact.avatar,
     };
-  });
+  }) || [];
 
   return (
     <ul className={threadListStyles}>
+      {isPending && <li className={statusStyles}>加载中...</li>}
+      {isError && <li className={statusStyles}>加载失败，请刷新页面重试</li>}
       {threadsWithContactInfo.map((thread) => (
         <ThreadListItem
           key={thread.id}
