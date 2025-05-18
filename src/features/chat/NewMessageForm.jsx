@@ -10,7 +10,12 @@ const sendButtonStyles = css`
 function SendButton() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending} className={sendButtonStyles}>
+    <button
+      type="submit"
+      disabled={pending}
+      className={sendButtonStyles}
+      data-testid="sendMessageButton"
+    >
       {pending ? '发送中...' : '发送'}
     </button>
   );

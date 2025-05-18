@@ -100,7 +100,7 @@ const MessageList = ({ messages }) => {
   );
 
   return (
-    <ul className={messageListStyles}>
+    <ul className={messageListStyles} data-testid="messageList">
       {messages.map((message, idx, arr) => (
         <React.Fragment key={message.id}>
           {(idx > 0 && shouldHideSentTime(arr[idx - 1], arr[idx])) || (

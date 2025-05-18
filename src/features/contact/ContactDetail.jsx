@@ -177,6 +177,7 @@ const ContactDetail = ({ contact }) => {
         <button
           onClick={() => navigate('/chat?contactId=' + id)}
           className="primary-button"
+          data-testid="jumpToThreadsButton"
         >
           发消息
         </button>
