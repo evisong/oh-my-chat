@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useOptimistic } from 'react';
 import { flushSync } from 'react-dom';
 import { ChatOllama } from '@langchain/ollama';
+import { produce } from 'immer';
 import { css } from '@linaria/core';
 import reactLogo from '#assets/react.svg';
 import MessageTopMenu from './MessageTopMenu.jsx';
@@ -103,27 +104,25 @@ const MessagesPane = ({ selectedThreadId }) => {
           },
         ]);
       });
-      const aiMessage = {
-        content: '...',
-        from: 'ollama',
-        fromAvatar: reactLogo,
-        sentTime: new Date().toISOString(),
-      };
-      addOptimisticMsg({
-        id: -1,
-        ...aiMessage,
-        sending: true,
-      });
       const llm = new ChatOllama({ model: 'llama3.1' });
-      const response = await llm.invoke(content);
+      const stream = await llm.stream(content);
       setMessages((currentMessages) => [
         ...currentMessages,
         {
           id: currentMessages.length + 1,
-          ...aiMessage,
-          content: response.content,
+          content: '',
+          from: 'ollama',
+          fromAvatar: reactLogo,
+          sentTime: new Date().toISOString(),
         },
       ]);
+      for await (const chunk of stream) {
+        setMessages((currentMessages) =>
+          produce(currentMessages, (draft) => {
+            draft[draft.length - 1].content += chunk.content;
+          })
+        );
+      }
     }
   };
 
