@@ -1,4 +1,4 @@
-import { useRef, useImperativeHandle } from 'react';
+import { useRef, useImperativeHandle, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { css } from '@linaria/core';
 
@@ -20,13 +20,22 @@ const composeMessageStyles = css`
   margin: 1.2rem;
   flex: 0 0 5rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 1.2rem;
+  gap: 0 1.2rem;
 
   & > textarea {
     flex: 1;
     height: 5rem;
+  }
+
+  & > .form-error {
+    margin-bottom: -1.2rem;
+    flex: 0 0 100%;
+    font-size: 0.7rem;
+    vertical-align: top;
+    color: red;
   }
 `;
 
@@ -37,12 +46,18 @@ const NewMessageForm = ({ onSubmitMessage, ref }) => {
       evt.target.form.requestSubmit();
     }
   };
-  const formAction = async (formData) => {
-    const content = formData.get('message');
-    if (content && content.trim().length > 0) {
-      await onSubmitMessage(content);
-    }
-  };
+  const [state, formAction, pending] = useActionState(
+    async (currentState, formData) => {
+      const content = formData.get('message');
+      if (content && content.trim().length > 0) {
+        await onSubmitMessage(content);
+        return { success: true };
+      } else {
+        return { success: false, error: '消息内容不能为空' };
+      }
+    },
+    { success: true }
+  );
   const inputRef = useRef(null);
   useImperativeHandle(ref, () => ({
     focus() {
@@ -57,8 +72,10 @@ const NewMessageForm = ({ onSubmitMessage, ref }) => {
         placeholder="请输入消息…"
         onKeyDown={handleKeyDown}
         ref={inputRef}
+        disabled={pending}
       />
       <SendButton />
+      {!state.success && <div className="form-error">{state.error}</div>}
     </form>
   );
 };
