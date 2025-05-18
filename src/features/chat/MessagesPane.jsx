@@ -1,6 +1,15 @@
 import { useEffect, useState, useRef, useOptimistic } from 'react';
 import { flushSync } from 'react-dom';
 import { ChatOllama } from '@langchain/ollama';
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from '@langchain/core/prompts';
+import {
+  AIMessage,
+  HumanMessage,
+  SystemMessage,
+} from '@langchain/core/messages';
 import { produce } from 'immer';
 import { css } from '@linaria/core';
 import reactLogo from '#assets/react.svg';
@@ -104,8 +113,22 @@ const MessagesPane = ({ selectedThreadId }) => {
           },
         ]);
       });
+      const promptTemplate = ChatPromptTemplate.fromMessages([
+        new SystemMessage(
+          'You are a React.js expert. ' +
+            'Users are learning React.js and will ask you questions. ' +
+            'Please provide helpful answers in Simplified Chinese language. ' +
+            'Do not include markdown or other formatting syntax in your answer.'
+        ),
+        new MessagesPlaceholder('msgs'),
+      ]);
       const llm = new ChatOllama({ model: 'llama3.1' });
-      const stream = await llm.stream(content);
+      const chain = promptTemplate.pipe(llm);
+      const msgs = messages.map((m) =>
+        m.from === 'me' ? new HumanMessage(m.content) : new AIMessage(m.content)
+      );
+      msgs.push(new HumanMessage(content));
+      const stream = await chain.stream({ msgs });
       setMessages((currentMessages) => [
         ...currentMessages,
         {
