@@ -2,10 +2,6 @@ import { use } from 'react';
 import { css, cx } from '@linaria/core';
 import useChatStore from '#stores/chatStore.js';
 
-const threadsPromise = fetch('/api/threads')
-  .then((res) => res.json())
-  .then((data) => data.threads);
-
 const threadListItemStyles = css`
   height: 80px;
   & > a {
@@ -84,7 +80,11 @@ const threadListStyles = css`
   overflow-y: auto;
 `;
 
-const ThreadList = ({ selectedThreadId, onClickThreadItem }) => {
+const ThreadList = ({
+  threadsPromise,
+  selectedThreadId,
+  onClickThreadItem,
+}) => {
   const threads = use(threadsPromise);
   const contacts = useChatStore((state) => state.contacts);
   const threadsWithContactInfo = threads.map((thread) => {
