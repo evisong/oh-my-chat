@@ -20,15 +20,40 @@ npm run dev
 
 ## 关于本书
 
-《AI辅助React Web应用开发实践：基于React 19和GitHub Copilot》由人民邮电出版社于2025年9月出版，作者是宋一玮。本书旨在系统介绍React框架，围绕React 19的核心开发范式——函数组件和Hooks展开，并以一款聊天应用的开发为例演示如何运用现代React技术开发Web应用。另外，本书还探讨了AI辅助技术在React前端开发中的应用实践。
+《**AI辅助React Web应用开发实践：基于React 19和GitHub Copilot**》由人民邮电出版社于2025年9月出版，作者是宋一玮。本书旨在系统介绍React框架，围绕React 19的核心开发范式——函数组件和Hooks展开，并以一款聊天应用的开发为例演示如何运用现代React技术开发Web应用。另外，本书还探讨了AI辅助技术在React前端开发中的应用实践。
 
 全书的知识地图如下：
 ![Overall mind-map](docs/images/01-1-overall_mindmap.png)
 [下载原图](docs/images/01-1-overall_mindmap.png)
 
+除了配套代码，本书也提供了配套视频课程（连载中），课程目录如下：
+
+1. React在AI时代的机遇与本课程学习路径
+2. 快速上手React项目：从环境搭建到第一个聊天应用
+3. JSX不是HTML：语法糖、元素类型与实战模式
+4. 从需求到组件树：组件拆分与Hooks基础
+5. 数据驱动：props、state、context 全景图
+6. 单向数据流：跨组件通信不再乱
+7. 何时执行副作用：useEffect执行与清理全解析
+8. 合成事件PK原生DOM事件：受控组件实践
+9. 组件样式工程化：从CSS Modules到CSS-in-JS
+10. 渲染还是不渲染：读懂React生命周期和渲染机制
+11. 不可变数据不踩坑：Zustand + Immer高效管理应用状态
+12. 性能不佳怎么办：组件与应用级性能优化全解
+13. 可扩展的React代码：自定义Hooks与组件复用实战
+14. 单页应用路由怎么玩：React Router与代码懒加载实战
+15. 表单不止受控组件：React 19新特性与React Hook Form
+16. 与服务器通信：网络请求与React Query实战
+17. 项目质量怎么保证：端到端与单元测试全流程
+18. 前端工程化全链路：Vite、TypeScript与CI/CD
+19. React架构如何选型：CSR/SSR/SSG与Next.js
+20. AI时代前端新玩法：聊天机器人功能实战与创新
+
 欢迎扫描以下二维码购买本书：
 
 ![Buy book QRCode](docs/images/buy-book-qrcode.png)
+
+欢迎广大读者阅读本书，并提出宝贵意见和建议，谢谢！
 
 ----
 
